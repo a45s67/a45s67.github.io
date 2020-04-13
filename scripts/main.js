@@ -1,5 +1,5 @@
 let myhead = document.querySelector('h1');
-var mybut = document.querySelector('butoon');
+var mybut = document.querySelector('button');
 
 myhead.textContent = "Hi!!><";
 // alert("Say Hi !!");
