@@ -7,12 +7,17 @@ myhead.textContent = "Hi!!><";
 var myimg = document.querySelector('img');
 function set_user_name() {
 	let myname = prompt("Enter your name");
-	localStorage.setItem("name",myname);
-	myhead.innerHTML = 'Mozilla is cool-'+myname;
+	if (!myname||name===null){
+		set_user_name();
+	}
+	else{
+		localStorage.setItem("name",myname);
+		myhead.innerHTML = 'Mozilla is cool-'+myname;
+	}
 }
 
 mybut.onclick = function(){
-	set_user_name;
+	set_user_name();
 }
 
 
