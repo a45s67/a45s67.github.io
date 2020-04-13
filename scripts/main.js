@@ -1,8 +1,21 @@
 let myhead = document.querySelector('h1');
-myhead.textcontent = "Hi!!><";
+var mybut = document.querySelector('butoon');
+
+myhead.textContent = "Hi!!><";
 // alert("Say Hi !!");
 
 var myimg = document.querySelector('img');
+function set_user_name() {
+	let myname = prompt("Enter your name");
+	localStorage.setItem("name",myname);
+	myhead.innerHTML = 'Mozilla is cool-'+myname;
+}
+
+mybut.onclick = function(){
+	set_user_name;
+}
+
+
 myimg.onclick = function () {
 	let path = myimg.getAttribute('src');
 	if(path==="images/firefox-icon.png"){
