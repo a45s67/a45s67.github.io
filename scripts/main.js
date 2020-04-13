@@ -6,12 +6,12 @@ var myimg = document.querySelector('img');
 myimg.onclick = function () {
 	let path = myimg.getAttribute('src');
 	if(path==="images/firefox-icon.png"){
-		myimg.setAttribute("images/123.PNG");
+		myimg.setAttribute('src',"images/123.PNG");
 	}
 	else{
-		myimg.setAttribute("images/firefox-icon.png");
+		myimg.setAttribute('src',"images/firefox-icon.png");
 	}
-	
+
 // body...
 }
 
