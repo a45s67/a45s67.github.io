@@ -1,41 +1,38 @@
-html {
-  font-size: 10px;
-  font-family: 'Open Sans', sans-serif;
+html{
+    font-size: 15px; /* px means 'pixels': the base font size is now 10 pixels high */
+    font-family: 'Noto Sans TC', sans-serif;
+    background-color: #FBEDF3
 }
-
-
-h1 {
-  font-size: 60px;
-  text-align: center;
-}
-
-p, li {
-  font-size: 16px;
-  line-height: 2;
-  letter-spacing: 1px;
-}
-
-
-html {
-  background-color: #00539F;
-}
-
 body {
-  width: 600px;
-  margin: 0 auto;
-  background-color: #FF9500;
+  width: 1000px;
+  margin: 10px auto;
+  background-color: #E7E4EB;
   padding: 0 20px 20px 20px;
-  border: 5px solid black;
+  border: 1px solid #C5A0FD;
+    line-height: 2;
+    letter-spacing: 1px
 }
-
-h1 {
-  margin: 0;
-  padding: 20px 0;
-  color: #00539F;
-  text-shadow: 3px 3px 1px black;
+h1{
+    font-size: 60px;
+    text-align: center;
+    color: #FFFFFF;
+/*
+    margin: 20px auto; 
+    padding: 10px 0;    
+*/
+    text-shadow: 1px 1px 3px blue;
 }
-
-img {
-  display: block;
-  margin: 0 auto;
+img{
+    display: block;
+    margin: 0 auto;
+}
+p,li{
+    font-size: 16px;
+}
+p{
+    margin: 30px 0 0 0 ;
+    font-size: 18px;
+}
+ol{
+    /*border: 1px solid blue;*/
 }

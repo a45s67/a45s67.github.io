@@ -1,41 +1,35 @@
 let myhead = document.querySelector('h1');
-var mybut = document.querySelector('button');
 
-myhead.textContent = "Hi!!><";
-// alert("Say Hi !!");
+var count=1;
 
-var myimg = document.querySelector('img');
-function set_user_name() {
-	let myname = prompt("Enter your name");
-	if (!myname||name===null){
-		set_user_name();
-	}
-	else{
-		localStorage.setItem("name",myname);
-		myhead.innerHTML = 'Mozilla is cool-'+myname;
-	}
+
+document.querySelector('img').onclick = 
+function(){
+    alert(
+`Welcome to the Japari Park!!
+Su~~Go~~e!!`);
+    if(count===1){
+        myhead.textContent="My gaming project";
+    }
+    else{
+        let name = localStorage.getItem('name');
+        if (name!=='null'&&name!==''){
+            myhead.innerHTML = 'Hello '+name;
+//            alert(name);
+        }
+        else{
+            setname();
+        }
+//        myhead.innerHTML = "Okay!";
+    }
+    count+=1;
+    count%=2;
+     
+}
+function setname(){
+    let name = prompt("Please enter your name.");
+    localStorage.setItem("name",name);
+    
 }
 
-mybut.onclick = function(){
-	set_user_name();
-}
-
-
-myimg.onclick = function () {
-	let path = myimg.getAttribute('src');
-	if(path==="images/firefox-icon.png"){
-		myimg.setAttribute('src',"images/123.PNG");
-	}
-	else{
-		myimg.setAttribute('src',"images/firefox-icon.png");
-	}
-
-// body...
-}
-
-
-function mult(a,b){
-	let c = a*b;
-	return c;
-}
-document.querySelector('html').onclick = function(){ alert("Don't poke me...")};
+document.querySelector("button").onclick = setname;
