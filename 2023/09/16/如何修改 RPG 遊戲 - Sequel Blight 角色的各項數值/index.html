@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://a45s67.github.io/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/Title.png">
 <meta property="article:published_time" content="2023-09-16T10:01:54.000Z">
-<meta property="article:modified_time" content="2023-09-27T16:41:45.744Z">
+<meta property="article:modified_time" content="2023-10-02T17:02:31.188Z">
 <meta property="article:author" content="Fish Yu">
 <meta property="article:tag" content="Reverse Engineering">
 <meta name="twitter:card" content="summary">
@@ -58,7 +58,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-09-28 00:41:45'
+  postUpdate: '2023-10-03 01:02:31'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -162,10 +162,10 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://files.sakana.tw/Theme/avatar-arona.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Posts</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/Title.png')"><nav id="nav"><span id="blog-info"><a href="/" title="FlyFish's Blog"><span class="site-name">FlyFish's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Posts</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-09-16T10:01:54.000Z" title="Created 2023-09-16 18:01:54">2023-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-09-27T16:41:45.744Z" title="Updated 2023-09-28 00:41:45">2023-09-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>27min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年有段時間蠻閒的，划 FB 時看到有人推薦這款遊戲，就來玩玩看。<br>玩到一半發現這遊戲有點農，地圖還很大要走很久…但我只想趕快破完看劇情。<br>最後受不了了，決定直接開 CE 改數據。在逆向的過程中，意外的克服不少問題，學到了不少，於是決定記錄下來。</p>
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://files.sakana.tw/Theme/avatar-arona.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Posts</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/Title.png')"><nav id="nav"><span id="blog-info"><a href="/" title="FlyFish's Blog"><span class="site-name">FlyFish's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Posts</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-09-16T10:01:54.000Z" title="Created 2023-09-16 18:01:54">2023-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-10-02T17:02:31.188Z" title="Updated 2023-10-03 01:02:31">2023-10-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>27min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年有段時間蠻閒的，划 FB 時看到有人推薦這款遊戲，就來玩玩看。<br>玩到一半發現這遊戲有點農，地圖還很大要走很久…但我只想趕快破完看劇情。<br>最後受不了了，決定直接開 CE 改數據。在逆向的過程中，意外的克服不少問題，學到了不少，於是決定記錄下來。</p>
 <p>這篇文章會以這款遊戲的實際情境為例，講述我如何推測、找尋切入點，各種 CE 的操作小技巧，再到 CE 做不下去時，可以進行的其他選擇。<br>整個過程和操作細節上，應該還有很多能改進的點，若各路大神路過，有一些感覺能更好的做法，也懇請教教小弟…。</p>
-<h1 id="目標說明"><a href="#目標說明" class="headerlink" title="目標說明"></a>目標說明</h1><h2 id="Sequel-Blight"><a href="#Sequel-Blight" class="headerlink" title="Sequel Blight"></a>Sequel Blight</h2><img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-1.png" class="" width="450">
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-3.png" class="" width="450">
+<h1 id="目標說明"><a href="#目標說明" class="headerlink" title="目標說明"></a>目標說明</h1><h2 id="Sequel-Blight"><a href="#Sequel-Blight" class="headerlink" title="Sequel Blight"></a>Sequel Blight</h2><img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-1.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-3.png" class="" width="450">
 <p>基本上遊戲過程就是解劇情，跑地圖打怪、升等打王，解隱藏地圖和道具等等的。而戰鬥機制的部分，就是常見的操控腳色跑地圖，撞到怪物時會進入戰鬥回合這樣。<br>還有不少沒提到，總之這遊戲的元素很豐富，像是可以轉的職業就有 10 幾個，當 RPG 玩的話確實也蠻耐玩的。</p>
 <blockquote>
 <p>雖然遊戲本身是成人向，但這篇文章不含任何成人內容，可以放心瀏覽😂。</p>
@@ -181,13 +181,13 @@
 <li>然後就可以修改了</li>
 </ol>
 <h2 id="取得角色數值的-address"><a href="#取得角色數值的-address" class="headerlink" title="取得角色數值的 address"></a>取得角色數值的 address</h2><p>好像就這麼簡單。但要怎麼這些取得角色數值呢？直接搜尋會發現找不到這些值，於是猜測這些值存到 memory 前有處理過。(如下圖，搜尋攻擊力 302，過濾幾次後會發現搜尋結果一片空)</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-4.png" class="" width="450"> 
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-4.png" class="" width="450"> 
 
 <p>推測這類型的數值，應該是由角色基礎數值、職業加成、裝備加成等等加總起來的，目標放在角色基礎數值的話，由於沒辦法知道確切數值為何，搜尋的方法會變成：搜尋 unknown value -&gt; 回遊戲變動角色能力值 -&gt; 過濾出變動的 value -&gt; 回遊戲變動能力值 -&gt; … (無限 loop)。<br>但是，這流程有個 bug，我想不到要怎麼變動角色基礎能力值，話說能想變就變的話我也不用 CE 了。<br>卡了一段時間後，突然想到，在遊戲進行的過程中我有取得一些提升能力值的藥水，運氣不錯，這邊直接拿來試試。<br>以活力之水(效果是sp+5)為例，流程是先取得這道具數量的 address，然後一口氣把活力之水數量調大，再慢慢試角色能力值。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-5.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-5.png" class="" width="450">
 <p>(過濾方法基本上就是 unknown value -&gt; decreased value -&gt; decreased value …)</p>
 <p>把幾個看起來很像的 address 抓下來，隨便改個數字測試一下，確認 <code>0x0E481A8</code> 就是活力藥水的數量，同時還能發現一件事，記憶體中實際的數字是 <code>2x+1</code>，例如我藥水剩 4 瓶時，記憶體內容為 9，推測攻擊力、血量也是同理。<br>現在拿活力藥水狂加在拉比身上，過濾出 <code>0x14F53A24</code> 是人物基礎 sp 的位置。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-6.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-6.png" class="" width="450">
 
 <h2 id="使用-Poninter-Scan-找出指向-address-的-pointer"><a href="#使用-Poninter-Scan-找出指向-address-的-pointer" class="headerlink" title="使用 Poninter Scan 找出指向 address 的 pointer"></a>使用 Poninter Scan 找出指向 address 的 pointer</h2><p>接下來有幾條路可以走</p>
 <ol>
@@ -196,21 +196,21 @@
 </ol>
 <p>為了進行第一個方法，必須先把 sp 的 pointer 存下來，避免改壞 struct 造成遊戲 crash，遊戲重開後各物件的 address 通常都會被重分配一次，有存下實際的 pointer 才不會要再重找一遍 sp 的 address。<br>這時就要用到 Cheat Engine 的屌功能了 - <strong>Pointer Scan</strong> (在 Memory view 視窗的 Tools 選單中)，</p>
 <p>簡單來說，就是掃一遍<code>0x14F53A24</code>，CE 會找出所有指向到這位置的 pointer，接著把遊戲關掉重開，Rescan memory 出還是有效的 pointer，如下圖</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-8.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-8.png" class="" width="450">
 <p>重開遊戲後，跑一次 Rescan memory，過濾出正確的 pointer。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-7.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-7.png" class="" width="450">
 
 <h2 id="使用-dissect-struct-觀察周遭變數"><a href="#使用-dissect-struct-觀察周遭變數" class="headerlink" title="使用 dissect struct 觀察周遭變數"></a>使用 dissect struct 觀察周遭變數</h2><p>接下來就可以開始大膽的亂改 memory 了，觀察上一步很屌的 pointer scan 結果，可以注意到 sp (<code>0x0EF7A374</code>)似乎位於 pointer 指向的 address 再 +4 的位置，強烈懷疑這 address 是拉比的人物屬性 struct，丟去 dissect struct 看一下。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-9.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-9.png" class="" width="450">
 <p>因為角色狀態的呈現是一條 hp 一條 sp，若第二個 value (offset +4) 是 sp，那第一個 value (offset +0) 應該是 hp，依此類推並測試確認後，這 struct 的 member 應該如下：</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-10.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-10.png" class="" width="450">
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">character_status</span> &#123;</span><br><span class="line">    <span class="type">int</span> hp;</span><br><span class="line">    <span class="type">int</span> sp;</span><br><span class="line">    <span class="type">int</span> atk;</span><br><span class="line">    <span class="type">int</span> def;</span><br><span class="line">    <span class="type">int</span> matk;</span><br><span class="line">    <span class="type">int</span> mdef;</span><br><span class="line">    <span class="type">int</span> spd;</span><br><span class="line">    <span class="type">int</span> luk;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>整理一下 Cheat Table(以下以 CT 代稱)，把 hp、sp 之類的記下來，這裡又要再提到 CE 的一個 feature，我們可以新增一個 address，address 寫 +0, +4 之類的 offset 描述，然後用滑鼠把它拉到做為 base address 的 pointer 下，這個 address 就會自動把 base address 加上來。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-11.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-11.png" class="" width="450">
 <p>現在我們獲得了代表 rabi 狀態的 address，能夠隨便改 rabi 的攻擊力和血量了。那其他角色呢？</p>
 <p>再通靈一次，依據感覺，rabi、uula 等等角色會有一個角色物件，存有各種 member 代表狀態、道具、職業等等資訊。<br>然後會有玩家物件，member 包括遊戲進行時的各種數據、各個角色物件等等。在這邊假設角色物件會用指標去存，所以 uula 等角色物件的指標應該都存在 rabi 指標的旁邊，由於 rabi 是第一位角色，其他三位角色理論上是在 <code>+4</code>, <code>+8</code>, <code>+C</code> 的位置。(當然也有可能 member 是完整的角色物件，而不是指標，那這個假設就不成立了)。<br>把可以調的 offset 都試了一遍，還真的給我試成功，某一段 pointer <code>offset +18</code> 代表 rabi，改成 <code>offset +1B,+20,+24</code> 後，發現分別代表其他三位女角，現在有辦法任意修改 4 位女主角的基本數值了。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-12.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-12.png" class="" width="450">
 
 <p>運氣很好，給我猜中，省下了重新找指標的時間…</p>
 <blockquote>
@@ -227,7 +227,7 @@
 </ol>
 <h2 id="過濾出可能代表人物速度的-address"><a href="#過濾出可能代表人物速度的-address" class="headerlink" title="過濾出可能代表人物速度的 address"></a>過濾出可能代表人物速度的 address</h2><p>我們不知道移動速度的數字是多少，所以再來一次 unknown value 搜索大法：<br>unknown value-&gt; shift 按住移動人物 -&gt; changed value -&gt; 放掉 shift 移動人物 -&gt; changed value -&gt; 隨便做幾個動作後移動人物 -&gt; unchanged value -&gt; … (infinite loop)</p>
 <p>找到了 3 個看起來很像是移動速度的值，正常時是 11，按下 shift 會變成 9。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-13.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-13.png" class="" width="450">
 <p>但是把這 3 個 address 的值鎖在 11，會發現一點效果都沒有。<br>推測鎖值無效的原因，是這不是正確的 address，可能只是處理人物速度時，暫時分配的 variable 而已，而 CE 的鎖值其實是每 100ms 鎖一次 (可從設定調整)，所以鎖不到。<br>我猜邏輯可能是這樣：</p>
 <ul>
 <li>正常速度的 value 放在另外一個 address 上，人物移動時從這 address 拿值，取得人物速度。</li>
@@ -242,7 +242,7 @@
 <li><code>Find out what access this address</code></li>
 <li><code>Find out what writes to this address</code></li>
 </ol>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-14.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-14.png" class="" width="450">
 
 <p>依據目前的狀況，我猜這 3 個 address 有兩種可能</p>
 <ol>
@@ -250,12 +250,12 @@
 <li>人物真的要移動時，真的會套用的實際速度的 value : 使用 Find out what access to this address</li>
 </ol>
 <p>不如就先追第 2 種的狀況看看，追了發現都是同一段程式碼在處理 &#x3D; &#x3D;…不論我是否有按 shift。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-15.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-15.png" class="" width="450">
 <p>那第 1 種呢，也可發現 3 個 address 都是相同的幾段程式碼在存取…不論我是否有按 shift。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-16.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-16.png" class="" width="450">
 
 <p>追一下第 1 種的代碼段，看起來 eax 是指向某個結構，依據 ecx,edx 值判斷要將 ebp (caller 呼叫這 func 時傳入的參數) 塞到 eax 物件中的哪一個 member variable。<br>推測 eax 應該是地圖角色的 “當前瞬間狀態”，eax + 0xA * 4 是 “當前速度”。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-17.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-17.png" class="" width="450">
 
 <p>所以 ebp 可能就是真正的移動速度，追一下 stack 看看 caller 是誰，有兩個方法</p>
 <ol>
@@ -264,39 +264,39 @@
 </ol>
 <p>放上兩種方法的截圖：</p>
 <ol>
-<li>設個準確的條件，避免斷點到除了分配人物速度時的其他狀況。<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-18.png" class="" width="450"></li>
-<li>或是看一下 access 時的 stack 內容，因為 CE 很屌，我們可以一眼看出來哪些是指向程式碼段的，比較懶一點不去追 stack 多大的話，通常比較上面的那一個會是當前 func 的 return address(只要 caller 參數不是傳 func pointer 之類的)，於是我們就找到 caller 是誰了 (<code>RGSS300.dll + 0x2D36E</code>)。<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-19.png" class="" width="450"></li>
+<li>設個準確的條件，避免斷點到除了分配人物速度時的其他狀況。<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-18.png" class="" width="450"></li>
+<li>或是看一下 access 時的 stack 內容，因為 CE 很屌，我們可以一眼看出來哪些是指向程式碼段的，比較懶一點不去追 stack 多大的話，通常比較上面的那一個會是當前 func 的 return address(只要 caller 參數不是傳 func pointer 之類的)，於是我們就找到 caller 是誰了 (<code>RGSS300.dll + 0x2D36E</code>)。<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-19.png" class="" width="450"></li>
 </ol>
 <h2 id="追查-caller-呼叫進入這代碼段時傳入的參數"><a href="#追查-caller-呼叫進入這代碼段時傳入的參數" class="headerlink" title="追查 caller 呼叫進入這代碼段時傳入的參數"></a>追查 caller 呼叫進入這代碼段時傳入的參數</h2><p>看一下 caller 這邊 (<code>RGSS300.dll + 0x2D36E</code>) 怎麼呼叫的，反推回呼叫 func 時這些 register 的值。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-20.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-20.png" class="" width="450">
 <p>算了我好像推不回來各 register 的值，直接下斷點。這裡下斷點有兩個方式</p>
 <ol>
 <li>設 condition 斷點 (e.g. 像是 ECX &#x3D;&#x3D; 0x2fc1 &amp;&amp; EDI &#x3D;&#x3D; 0xb 之類的，注意 register 要大寫如 EAX，不行小寫如 eax) </li>
 <li>做 AOB injection，裡面寫幾個 cmp 條件，斷點下在符合條件時會走到的指令上</li>
 </ol>
-<p>因為第 1 種的斷點下了之後，遊戲會瞬間 lag 到不可思議，我猜他的 software bp 是用 lua 做的。所以我推薦第 2 種，作法如下</p>
+<p>因為第 1 種的斷點下了之後，遊戲會瞬間 lag 到不可思議，我猜他的 softw&#x2F;blogare bp 是用 lua 做的。所以我推薦第 2 種，作法如下</p>
 <ol>
 <li>Tools -&gt; Auto Assemble -&gt; template 選 AOB injection</li>
 <li>開始寫 asm<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[ENABLE]</span><br><span class="line">aobscanmodule(DebugNormalSpeed,RGSS300.dll,83 C0 FC 83 C2 0C 89 16 89 46 04 8B) // should be unique</span><br><span class="line">alloc(newmem,$1000)</span><br><span class="line"></span><br><span class="line">label(code)</span><br><span class="line">label(return)</span><br><span class="line"></span><br><span class="line">newmem:</span><br><span class="line">  cmp edi, 0xB</span><br><span class="line">  jne code</span><br><span class="line">  cmp ecx, 0x2FC1 // 這裡可以下一個斷點</span><br><span class="line">  jne code </span><br><span class="line">  nop // 或下在這裡也行</span><br><span class="line"></span><br><span class="line">code:</span><br><span class="line">  add eax,-04</span><br><span class="line">  add edx,0C</span><br><span class="line">  jmp return</span><br><span class="line"></span><br><span class="line">DebugNormalSpeed:</span><br><span class="line">  jmp newmem</span><br><span class="line">  nop</span><br><span class="line">return:</span><br><span class="line">registersymbol(DebugNormalSpeed)</span><br><span class="line"></span><br><span class="line">[DISABLE]</span><br><span class="line"></span><br><span class="line">DebugNormalSpeed:</span><br><span class="line">  db 83 C0 FC 83 C2 0C</span><br><span class="line"></span><br><span class="line">unregistersymbol(DebugNormalSpeed)</span><br><span class="line">dealloc(newmem)</span><br></pre></td></tr></table></figure></li>
 <li>存到 cheat table 中</li>
 </ol>
 <p>這樣就寫好了一個簡單的 injection 了，隨時可以開啟關閉 cheat table 上你剛寫好的 asm script。<br>開啟時，CE 會分配 asm 一塊 memory，並將符合 AOB 特徵的程式段改成 jmp 到自製 asm 的 address。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-24.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-24.png" class="" width="450">
 <p>大概就是這樣子，可以做很多有的沒的事情，總之下個斷點簡單檢查一下，可以知道</p>
 <ol>
 <li>edi &#x3D; 0xb 時 ecx 都是 0x2FC1</li>
 <li>這時 eax &#x3D; 0x326010c (被傳入 func 的參數 - edi 值為 [eax-4])</li>
 </ol>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-25.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-25.png" class="" width="450">
 <p>所以 <code>0x326010c - 4</code> 是 normal speed 的 adr 嗎？看了一下這個值會一直亂跳，看來不是，馬的。他只有在 <code>edi = 0xb</code> 和 <code>ecx = 0x2fc1</code> 時才會是正常速度值 <code>0xB</code>。<br>這要怎麼追，我破防了。</p>
 <h2 id="從人物-x-軸-address-切入"><a href="#從人物-x-軸-address-切入" class="headerlink" title="從人物 x 軸 address 切入"></a>從人物 x 軸 address 切入</h2><p>因為暫時不知道怎麼往回追了，先改用其他方式試試。<br>假設地圖角色的各項狀態數值，是存在一個 struct 裡的，member 可能包括 xy 軸、可否移動、可否無視怪物、人物移動速度等等，那我們先抓出 xy 軸，然後觀察附近 memory 的值的變動，說不定能找出人物移動速度？！</p>
 <p>首先人物隨便移動幾下，過濾出 x 軸 adr。然後看一下附近的值，還真的有跟我們剛剛看到一樣是 0xB 的 value，而且按下 shift 也會變成 0x9，可能真的跟速度有關，在這邊先幫他命名為 speed。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-26.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-26.png" class="" width="450">
 <p>但我們調整 speed 的值，人物的移動速度仍然不會變，而且會被改回 0xB。使用上一段的方法找出讀取寫入的代碼段，發現還是回到了相同的地方 <code>RGSS300.dll + 0x2D369</code>，破防…。</p>
 <h2 id="反向找出各-register-的內容和相關的代碼段"><a href="#反向找出各-register-的內容和相關的代碼段" class="headerlink" title="反向找出各 register 的內容和相關的代碼段"></a>反向找出各 register 的內容和相關的代碼段</h2><p>為方便，在這邊先放上<code>RGSS300.dll + 0x2D34D</code> ~ <code>RGSS300.dll + 0x2D369</code> 的代碼段</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">RGSS300.dll+2D348 - jmp RGSS300.dll+2D1D6</span><br><span class="line">RGSS300.dll+2D34D - mov eax,[esi+04] // 段落的開始</span><br><span class="line">RGSS300.dll+2D350 - mov ecx,[edx+04]</span><br><span class="line">RGSS300.dll+2D353 - mov ebx,[edx+08]</span><br><span class="line">RGSS300.dll+2D356 - mov edi,[eax-04]</span><br><span class="line">RGSS300.dll+2D359 - add eax,-04</span><br><span class="line">RGSS300.dll+2D35C - add edx,0C</span><br><span class="line">RGSS300.dll+2D35F - mov [esi],edx</span><br><span class="line">RGSS300.dll+2D361 - mov [esi+04],eax</span><br><span class="line">RGSS300.dll+2D364 - mov esi,[esi+14]</span><br><span class="line">RGSS300.dll+2D367 - push edi</span><br><span class="line">RGSS300.dll+2D368 - push ecx</span><br><span class="line">RGSS300.dll+2D369 - call RGSS300.dll+285E0</span><br><span class="line">RGSS300.dll+2D36E - mov esi,[esp+3C]</span><br><span class="line">RGSS300.dll+2D372 - add esp,08</span><br><span class="line">RGSS300.dll+2D375 - jmp RGSS300.dll+2D1D6 // 段落的結束，跳回 RGSS300.dll+2D1D6</span><br></pre></td></tr></table></figure>
 <p>總之，目標是找出到底從哪邊進來 <code>RGSS300.dll + 0x2D34D</code> 的，這樣我就有線索找出 <code>edi = 0xB</code> 之前的 esi、edx 等等 register 是被誰分配的，經過一番快速的分析，大概就像下面，感覺類似做某件事時會呼叫對應的 func pointer(<code>RGSS300.dll + 0x2F598</code>) 這樣。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-27.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-27.png" class="" width="450">
 
 <p>下記憶體寫入斷點，追寫入 esi+4 (0x3DCB114) 且 condition 是 <code>readInterger(0x3DCB114) == 0xB</code> 時的位置，找到了 <code>RGSS300.dll+2D26E</code>。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">RGSS300.dll+2D241 - mov eax,[edx+08]</span><br><span class="line">RGSS300.dll+2D244 - mov ecx,[edx+04] // 3. 想記錄下來的值</span><br><span class="line">RGSS300.dll+2D247 - add edx,0C</span><br><span class="line">RGSS300.dll+2D24A - mov [esi],edx</span><br><span class="line">RGSS300.dll+2D24C - push eax</span><br><span class="line">RGSS300.dll+2D24D - mov eax,[esi+18]</span><br><span class="line">RGSS300.dll+2D250 - mov edx,ecx // 2. 在這下 AOB injection，看看 edx + 0x4 和 ecx 的值這時為何，如果是 0xB 就中了</span><br><span class="line">RGSS300.dll+2D252 - mov ecx,[ebp+08]</span><br><span class="line">RGSS300.dll+2D255 - call RGSS300.dll+28140 // 1. 裡面有一個 sar edx,1，表示取得 edx/2，推測 edx 是關鍵值</span><br><span class="line">RGSS300.dll+2D25A - add esp,04</span><br><span class="line">RGSS300.dll+2D25D - mov ecx,[esi+04]</span><br><span class="line">RGSS300.dll+2D260 - lea edx,[ecx+000000B4]</span><br><span class="line">RGSS300.dll+2D266 - cmp edx,esi</span><br><span class="line">RGSS300.dll+2D268 - jae RGSS300.dll+2F48D</span><br><span class="line">RGSS300.dll+2D26E - mov [ecx],eax // 這裡寫入了 0xB 的值給疑似是代表 normal speed 的暫存變數(0x3DCB114)</span><br><span class="line">RGSS300.dll+2D270 - add dword ptr [esi+04],04</span><br><span class="line">RGSS300.dll+2D274 - jmp RGSS300.dll+2D1D6</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -311,7 +311,7 @@
 
 <h2 id="靜態逆向"><a href="#靜態逆向" class="headerlink" title="靜態逆向"></a>靜態逆向</h2><p>那<code>RGSS300.dll+2D25D</code>是從哪裡 jmp 過來的呢？翻了一遍 func pointers (<code>RGSS300.dll + 0x2F598</code>)的內容，沒有 pointer 的值是 <code>0x102D25D</code> ，看來是無法知道是哪裡來的了…只好召喚出好朋友 IDA 來看一下 cross reference 了。</p>
 <p>首先用 x32dbg 的 Scylla 把 module(RGSS300.dll) 當前的記憶體 dump 下來。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-38.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-38.png" class="" width="450">
 
 <blockquote>
 <p>要特別從記憶體 dump 的原因是如果直接把 RGSS300.dll 丟給 IDA，會發現<code>RGSS300.dll+2D25D</code>這邊的指令都還沒被載入，這是 runtime 才會載入的實作內容。</p>
@@ -326,23 +326,23 @@
 <li>對 0x1002d268 下條件斷點 EAX &#x3D;&#x3D; 0xB，斷不到。</li>
 </ul>
 <p>wtf…這什麼靈異現象，怎麼都斷不到的 na？</p>
-<h2 id="從人物-x-軸-address-切入-again"><a href="#從人物-x-軸-address-切入-again" class="headerlink" title="從人物 x 軸 address 切入 (again)"></a>從人物 x 軸 address 切入 (again)</h2><img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-28.png" class="" width="450">
+<h2 id="從人物-x-軸-address-切入-again"><a href="#從人物-x-軸-address-切入-again" class="headerlink" title="從人物 x 軸 address 切入 (again)"></a>從人物 x 軸 address 切入 (again)</h2><img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-28.png" class="" width="450">
 <p>因為追不出甚麼結果，我決定重新來，說不定 0xB 這個值根本就錯了，其實速度不是 0xB &#x3D; &#x3D;。<br>重新再找了一次 x 軸，這一次，先鎖值確認這個 x 軸真的 work，然後看了一下地址 <code>0x10FE5D94</code>，嗯?!對照 <code>RGSS300.dll</code> 的 module base <code>0x10000000</code>，這 address 好像是在 <code>RGSS300.dll</code> memory 段中耶，難道其實 x 軸之類的 info 是 module 的 global variable 嗎? 那我剛剛找到的 x 軸莫非是 tmp var？會不會之前找錯目標了，看一下周遭 memory 的變化，亂試一下。</p>
 <p>結果發現 +1C 的變數代表速度…，改成 0xB、0xD 之類的值後，人物速度真的會變快。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-29.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-29.png" class="" width="450">
 
 <p>至此完成了人物速度位置的尋找。定位到實際的 pointer 後就可以加一些小功能了，例如設定 hotkey 方便隨時調整自己的移動速度之類的。</p>
 <h1 id="修改移動速度-cont’d"><a href="#修改移動速度-cont’d" class="headerlink" title="修改移動速度 (cont’d)"></a>修改移動速度 (cont’d)</h1><p>耐心看到這邊的各位，心裡應該在想：”怎麼可能這麼會猜，還都給你猜中，通靈校隊喔？你這感覺很大一部分都像賽到的，運氣流的是不是？”。<br>沒錯，其實當初在上一章節中，我在反追 <code>0xB</code> 這個代表人物速度的值到底哪裡來的時候，就卡關卡到放棄了 (而且事實速度也不是 0xB…是 0x9)。放棄的原因是我對整個遊戲機制的實作處理真的沒有概念，除了不確定自己過濾出的值對不對，想要往回追也不知道要往哪裡追。逆向過的應該心有戚戚焉(吧？)，遇到動態分析時大海撈針的不確定感，以及靜態分析 (e.g. IDA) 那硬核的組語和 decompiled c++ 內容，我都在想我是不是在自虐。</p>
 <p>所以我放棄硬剛，轉向 google 找尋其他出路。</p>
 <ol>
 <li>搜 <code>RGSS300 dll</code> 時，發現這個遊戲是用 RPG Maker VX Ace 做的</li>
-<li>搜 <code>RPG Maker VX Ace Cheat</code> 之類的，發現有人寫了一個 RMVA(RPG Maker VX Ace) 用的 Cheater (<a target="_blank" rel="noopener" href="https://f95zone.to/threads/rpg-maker-vx-ace-cheat-menu.20567/">RMVA Cheat Menu</a> (<a target="_blank" rel="noopener" href="https://files.sakana.tw/Sequel-Blight-Reversing/RPG%20VX%20ACE%20Cheat%20System.7z">載點</a>))</li>
+<li>搜 <code>RPG Maker VX Ace Cheat</code> 之類的，發現有人寫了一個 RMVA(RPG Maker VX Ace) 用的 Cheater (<a target="_blank" rel="noopener" href="https://f95zone.to/threads/rpg-maker-vx-ace-cheat-menu.20567/">RMVA Cheat Menu</a> (<a target="_blank" rel="noopener" href="https://files.sakana.tw/blog/Sequel-Blight-Reversing/RPG%20VX%20ACE%20Cheat%20System.7z">載點</a>))</li>
 </ol>
 <h2 id="RMVA-Cheat-Menu"><a href="#RMVA-Cheat-Menu" class="headerlink" title="RMVA Cheat Menu"></a>RMVA Cheat Menu</h2><pre><code>這插件的本名應該叫 RMVA Cheat System 才對，純粹因為是他有 menu，所以我都叫他 cheat menu 或 cheater。
 </code></pre>
 <p>這個 Cheater 大概長這樣，第一次執行時會先進行安裝 Cheat Menu，接下來就可以 F8 叫出作弊選單了。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-30.png" class="" width="450">
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-31.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-30.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-31.png" class="" width="450">
 
 <p>來了，這個 Cheater 就是我的研究目標了，至少研究這個東西怎麼做，應該比逆向遊戲本身還簡單吧。<br>分成幾個階段</p>
 <ol>
@@ -395,7 +395,7 @@
 </ul>
 </li>
 <li>拿 RMVA 內建的編輯器來用<ul>
-<li>建立遊戲專案後，直接把 <code>Scripts.rvdata2</code> 複製一份取代遊戲專案中的版本，把腳本編輯器打開後就能見到解密後的 <code>Scripts.rvdata2</code> 內容了。<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-32.png" class="" width="450"></li>
+<li>建立遊戲專案後，直接把 <code>Scripts.rvdata2</code> 複製一份取代遊戲專案中的版本，把腳本編輯器打開後就能見到解密後的 <code>Scripts.rvdata2</code> 內容了。<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-32.png" class="" width="450"></li>
 </ul>
 </li>
 </ol>
@@ -413,12 +413,12 @@
 <li>初始化作弊選單的視窗 (e.g. <code>Scene_Cheat</code>, <code>Window_CheatCommand</code>)</li>
 <li>設定每個選項個別的 handle，當選擇對應的選項時，其 handle 會創建新的子選單並套用設定。 (e.g. <code>Scene_Cheat</code>, <code>set_handler</code>)</li>
 </ol>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-33.png" class="" width="450">
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-34.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-33.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-34.png" class="" width="450">
 
 <p>不過，當去比對遊戲本體的腳本內容時，會發現 <code>Scene_Map</code> 是本來就有的 class。<br>如果跟我一樣只有寫過 c++、python 之類的朋友，應該會黑人問號，重複定義 class 會噴錯吧？其實這個操作在 ruby 叫做 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3822471/are-you-allowed-to-redefine-a-class-in-ruby-or-is-this-just-in-irb">open class</a>，可以往已經定義好的 class 中打 patch，太淫蕩了…。<br>儘管身為 c++ 開發者的我無法適應這個特性，甚至還想忘記我看了什麼，但也確實是有了這個特性，這個作弊腳本才能在保留遊戲原先邏輯的前提下加東西，牛逼。</p>
 <h3 id="調整人物速度的選項"><a href="#調整人物速度的選項" class="headerlink" title="調整人物速度的選項"></a>調整人物速度的選項</h3><p>翻了一遍跟 speed 選單有關的實作，基本上流程是這樣的</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-35.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-35.png" class="" width="450">
 <ol>
 <li>開啟 “Move Speed” 選單，呼叫 edit_move command (此 command ext &#x3D; “move”)。</li>
 <li>edit_move 呼叫 Window_ChaatMove 處理設定速度 (4~9) 的選項，在這邊選項是 4。</li>
@@ -426,7 +426,7 @@
 <li>cheat_change 跟據傳入的 ext 來設定對應的屬性值，在這邊設定 <code>@move = 4</code>。</li>
 </ol>
 <p>大致了解選單的邏輯後，開始追 move 值的改動會如何套用到遊戲人物上，這部分蠻單純的，就是覆寫原本的 <code>real_move_speed</code>，改為使用作弊選單設定的 move 值。(下圖左為作弊選單，圖右為原本邏輯)</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-36.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-36.png" class="" width="450">
 <p>(原本的<code>real_move_speed</code>跟我在使用 CE 逆向時的猜測之一蠻接近的，還真的是人物速度 +1，再細追一下會發現這個值主要影響每一幀更新時人物的移動距離。)</p>
 <h2 id="回到-CE"><a href="#回到-CE" class="headerlink" title="回到 CE"></a>回到 CE</h2><p>目前已經有兩個方法可以達成這件事了</p>
 <ol>
@@ -434,7 +434,7 @@
 <li>Cheat Menu</li>
 </ol>
 <p>跟一開始不一樣的是，我們手上有 source 了，在使用 CE 逆向的階段時，有很多不確定的 struct member，現在可以無恥的跟 src 比對， 一個一個找出這些值到底是啥。<br>直接來比對 <code>Game_CharacterBase</code> 和 CE 看到的 struct 內容。</p>
-<img src="https://files.sakana.tw/Sequel-Blight-Reversing/sequel-blight-37.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-37.png" class="" width="450">
 <p>可見數字是以 2x + 1 去存，而 bool 是以 2x 去存。並且把這些值玩一遍之後，我感覺比較實用的有 move speed、through mode (不會撞怪、不受障礙的移動)。</p>
 <h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>以上就是逆向這遊戲的過程。<br>通過這篇文，不專業的記錄了用 CE 逆向遊戲的各個階段</p>
 <ol>
