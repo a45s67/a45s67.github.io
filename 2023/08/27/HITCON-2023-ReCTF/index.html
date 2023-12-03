@@ -5,23 +5,23 @@
 <meta property="og:site_name" content="FlyFish&#39;s Blog">
 <meta property="og:description" content="緣由上周被公司派去參加了 hitcon 2023，看到年齡相近的大神們那超高水準的研究以及充滿夢想(?)的眼神後，被激勵到，又燃起 hacker 的熱情了。剛好想到自己有個夢想就是挖洞拿獎金達到財富自由，由於在台上的講者們都曾是 ctf 王，打 ctf 似乎是個鍛鍊挖洞技能的好方法，於是打算如法炮製，試著打打看，看一年後有沒有機會真的變成挖洞高手，挖洞賺大錢。 在這次 hitcon 2023 我玩">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/cover.jpg">
+<meta property="og:image" content="https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg">
 <meta property="article:published_time" content="2023-08-27T12:50:27.000Z">
-<meta property="article:modified_time" content="2023-10-02T17:06:36.328Z">
+<meta property="article:modified_time" content="2023-12-03T15:26:08.348Z">
 <meta property="article:author" content="Fish Yu">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/cover.jpg"><link rel="shortcut icon" href="/images/dolphin.svg"><link rel="canonical" href="https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<meta name="twitter:image" content="https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg"><link rel="shortcut icon" href="/images/dolphin.svg"><link rel="canonical" href="https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
   localSearch: undefined,
   translate: undefined,
   noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
   copy: {
-    success: 'Copy successfully',
-    error: 'Copy error',
-    noSupport: 'The browser does not support'
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
   },
   relativeDate: {
     homepage: false,
@@ -29,7 +29,7 @@
   },
   runtime: '',
   dateSuffix: {
-    just: 'Just',
+    just: 'Just now',
     min: 'minutes ago',
     hour: 'hours ago',
     day: 'days ago',
@@ -38,13 +38,11 @@
   copyright: undefined,
   lightbox: 'fancybox',
   Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
   },
-  isPhotoFigcaption: false,
+  isPhotoFigcaption: true,
   islazyload: false,
   isAnchor: false,
   percent: {
@@ -58,85 +56,78 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-10-03 01:06:36'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
+  postUpdate: '2023-12-03 23:26:08'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
         }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
         }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
         }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
         }
       }
-      win.activateLightMode = function () {
+      win.activateLightMode = () => {
         document.documentElement.setAttribute('data-theme', 'light')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
@@ -144,9 +135,9 @@
       }
       const t = saveToLocal.get('theme')
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
       const asideStatus = saveToLocal.get('aside-status')
       if (asideStatus !== undefined) {
         if (asideStatus === 'hide') {
@@ -156,13 +147,13 @@
         }
       }
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
       }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://files.sakana.tw/blog/Theme/avatar-arona.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Posts</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2023/08/27/HITCON-2023-ReCTF/cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="FlyFish's Blog"><span class="site-name">FlyFish's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Posts</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">HITCON-2023-ReCTF</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-08-27T12:50:27.000Z" title="Created 2023-08-27 20:50:27">2023-08-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-10-02T17:06:36.328Z" title="Updated 2023-10-03 01:06:36">2023-10-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>6min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HITCON-2023-ReCTF"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>上周被公司派去參加了 hitcon 2023，看到年齡相近的大神們那超高水準的研究以及充滿夢想(?)的眼神後，被激勵到，又燃起 hacker 的熱情了。<br>剛好想到自己有個夢想就是挖洞拿獎金達到財富自由，由於在台上的講者們都曾是 ctf 王，打 ctf 似乎是個鍛鍊挖洞技能的好方法，於是打算如法炮製，試著打打看，看一年後有沒有機會真的變成挖洞高手，挖洞賺大錢。</p>
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://files.sakana.tw/blog/Theme/avatar-arona.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Posts</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="FlyFish's Blog"><span class="site-name">FlyFish's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Posts</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">HITCON-2023-ReCTF</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-08-27T12:50:27.000Z" title="Created 2023-08-27 20:50:27">2023-08-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-12-03T15:26:08.348Z" title="Updated 2023-12-03 23:26:08">2023-12-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>6mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HITCON-2023-ReCTF"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>上周被公司派去參加了 hitcon 2023，看到年齡相近的大神們那超高水準的研究以及充滿夢想(?)的眼神後，被激勵到，又燃起 hacker 的熱情了。<br>剛好想到自己有個夢想就是挖洞拿獎金達到財富自由，由於在台上的講者們都曾是 ctf 王，打 ctf 似乎是個鍛鍊挖洞技能的好方法，於是打算如法炮製，試著打打看，看一年後有沒有機會真的變成挖洞高手，挖洞賺大錢。</p>
 <p>在這次 hitcon 2023 我玩了 devcore wargame 和 rectf，<a href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023">DEVCORE-Wargame-2023</a> 的部分，在活動的兩天內我只解的掉一題水題…(儘管我仍然花了 5 個小時)，rectf 因為開放時間比較久，費盡洪荒之力總算是解了兩題。在這邊放上 writeup 和簡單的心得，記錄一下。</p>
 <h2 id="ReCTF"><a href="#ReCTF" class="headerlink" title="ReCTF"></a>ReCTF</h2><p>顧名思義，這個活動是將從前 hitcon ctf 出過的題目進行復刻。</p>
 <h3 id="papapa"><a href="#papapa" class="headerlink" title="papapa"></a>papapa</h3><blockquote>
@@ -240,54 +231,54 @@
 </ul>
 <h4 id="yeeclass-1"><a href="#yeeclass-1" class="headerlink" title="yeeclass"></a>yeeclass</h4><p>這一個我感覺就差一點，我因為原本的想法失敗就放棄了，但我認為我是有能力觀察到 uniuid 那邊的貓膩的，<br>這邊沒有堅持住，搥牆，要改進才行。<br>在說做不到之前，必須好好確認是不是還有其他可以利用的線索還沒觀察到的。</p>
 <h4 id="babyfirst-1"><a href="#babyfirst-1" class="headerlink" title="babyfirst"></a>babyfirst</h4><p>看完 writeup 後，我難得慶幸還好我有看，因為我真的想不出來這幾招…學到了。<br>可能也是因為我對 linux 的 coreutils 太不熟了，希望未來會改善。</p>
-</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/">CTF</a></div><div class="post_share"><div class="social-share" data-image="/2023/08/27/HITCON-2023-ReCTF/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img class="cover" src="/images/star_flower_clip.jpg" onerror="onerror=null;src='/images/crying_chopper.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">DEVCORE-Wargame-2023</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img class="cover" src="/images/star_flower_clip.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-03</div><div class="title">DEVCORE-Wargame-2023</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div><div id="comment-switch"><span class="first-comment">Giscus</span><span class="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%A3%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">緣由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ReCTF"><span class="toc-number">2.</span> <span class="toc-text">ReCTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#papapa"><span class="toc-number">2.1.</span> <span class="toc-text">papapa</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yeeclass"><span class="toc-number">2.2.</span> <span class="toc-text">yeeclass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#babyfirst"><span class="toc-number">2.3.</span> <span class="toc-text">babyfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%A1%8C"><span class="toc-number">2.4.</span> <span class="toc-text">其他題</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">2.5.</span> <span class="toc-text">心得</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#papapa-1"><span class="toc-number">2.5.1.</span> <span class="toc-text">papapa</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#yeeclass-1"><span class="toc-number">2.5.2.</span> <span class="toc-text">yeeclass</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#babyfirst-1"><span class="toc-number">2.5.3.</span> <span class="toc-text">babyfirst</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Fish Yu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>function getGiscusTheme (theme) {
-  return theme === 'dark' ? 'dark_dimmed' : 'light'
-}
-
-function loadGiscus () {
-  const config = Object.assign({
-    src: 'https://giscus.app/client.js',
-    'data-repo': 'a45s67/a45s67.github.io',
-    'data-repo-id': 'MDEwOlJlcG9zaXRvcnkyMjczMzA1OTY=',
-    'data-category-id': 'DIC_kwDODYzKJM4CR_uz',
-    'data-mapping': 'pathname',
-    'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
-    'data-reactions-enabled': '1',
-    crossorigin: 'anonymous',
-    async: true
-  },{"data-loading":"lazy"})
-
-  let ele = document.createElement('script')
-  for (let key in config) {
-    ele.setAttribute(key, config[key])
-  }
-  document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin',ele)
-}
-
-function changeGiscusTheme (theme) {
-  function sendMessage(message) {
-    const iframe = document.querySelector('iframe.giscus-frame')
-    if (!iframe) return
-    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/">CTF</a></div><div class="post_share"><div class="social-share" data-image="https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img class="cover" src="/images/star_flower_clip.jpg" onerror="onerror=null;src='/images/crying_chopper.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">DEVCORE-Wargame-2023</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img class="cover" src="/images/star_flower_clip.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-03</div><div class="title">DEVCORE-Wargame-2023</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div><div class="comment-switch"><span class="first-comment">Giscus</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%A3%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">緣由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ReCTF"><span class="toc-number">2.</span> <span class="toc-text">ReCTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#papapa"><span class="toc-number">2.1.</span> <span class="toc-text">papapa</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yeeclass"><span class="toc-number">2.2.</span> <span class="toc-text">yeeclass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#babyfirst"><span class="toc-number">2.3.</span> <span class="toc-text">babyfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%A1%8C"><span class="toc-number">2.4.</span> <span class="toc-text">其他題</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">2.5.</span> <span class="toc-text">心得</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#papapa-1"><span class="toc-number">2.5.1.</span> <span class="toc-text">papapa</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#yeeclass-1"><span class="toc-number">2.5.2.</span> <span class="toc-text">yeeclass</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#babyfirst-1"><span class="toc-number">2.5.3.</span> <span class="toc-text">babyfirst</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Fish Yu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(()=>{
+  const getGiscusTheme = theme => {
+    return theme === 'dark' ? 'dark_dimmed' : 'light'
   }
 
-  sendMessage({
-    setConfig: {
-      theme: getGiscusTheme(theme)
+  const loadGiscus = () => {
+    const config = Object.assign({
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'a45s67/a45s67.github.io',
+      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkyMjczMzA1OTY=',
+      'data-category-id': 'DIC_kwDODYzKJM4CR_uz',
+      'data-mapping': 'pathname',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true
+    },{"data-loading":"lazy"})
+
+    const ele = document.createElement('script')
+    for (let key in config) {
+      ele.setAttribute(key, config[key])
     }
-  });
-}
-
-btf.addModeChange('giscus', changeGiscusTheme)
-
-if ('Giscus' === 'Giscus' || !false) {
-  if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
-  else loadGiscus()
-} else {
-  function loadOtherComment () {
-    loadGiscus()
+    document.getElementById('giscus-wrap').appendChild(ele)
   }
-}</script><script>function loadDisqus () {
+
+  const changeGiscusTheme = theme => {
+    const sendMessage = message => {
+      const iframe = document.querySelector('iframe.giscus-frame')
+      if (!iframe) return
+      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+    }
+
+    sendMessage({
+      setConfig: {
+        theme: getGiscusTheme(theme)
+      }
+    });
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment= loadGiscus
+  }
+})()</script><script>(() => {
   const disqus_config = function () {
     this.page.url = 'https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/'
     this.page.identifier = '/2023/08/27/HITCON-2023-ReCTF/'
@@ -295,31 +286,49 @@ if ('Giscus' === 'Giscus' || !false) {
   }
 
   const disqusReset = () => {
-    DISQUS.reset({
+    window.DISQUS && window.DISQUS.reset({
       reload: true,
       config: disqus_config
     })
   }
 
-  btf.addModeChange('disqus', disqusReset)
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
 
-  if (window.DISQUS) disqusReset()
-  else {
-    (function() { 
-      var d = document, s = d.createElement('script');
-      s.src = 'https://a45s67-blog.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://a45s67-blog.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
   }
-}
 
-if ('Giscus' === 'Disqus' || !false) {
-  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
-  else loadDisqus()
-} else {
-  function loadOtherComment () {
-    loadDisqus()
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=a45s67-blog&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
   }
-}
-</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+  if ('Giscus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
