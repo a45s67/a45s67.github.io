@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>FlyFish's Blog</title><meta name="author" content="Fish Yu"><meta name="copyright" content="Fish Yu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我不是檔案玩家">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FlyFish&#39;s Blog">
+<meta property="og:url" content="https://sakana.tw/index.html">
+<meta property="og:site_name" content="FlyFish&#39;s Blog">
+<meta property="og:description" content="我不是檔案玩家">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://files.sakana.tw/blog/Theme/avatar-arona.png">
+<meta property="article:author" content="Fish Yu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.sakana.tw/blog/Theme/avatar-arona.png"><link rel="shortcut icon" href="/images/dolphin.svg"><link rel="canonical" href="https://sakana.tw/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'FlyFish\'s Blog',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg" style="background-image: url(url(/images/default_cover.png));"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://files.sakana.tw/blog/Theme/avatar-arona.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><span> Posts</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">FlyFish's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><span> Posts</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">FlyFish's Blog</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/" title="分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法"><img class="post-bg" src="/images/star_flower_clip.jpg" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/" title="分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法">分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-01-29T16:00:02.000Z" title="Created 2025-01-30 00:00:02">2025-01-30</time></span></div><div class="content">我的操作環境及習慣我上班工作時是 windows + wsl，下班回家則是 mac OS 或是 windows，日常工作都是能用鍵盤就用鍵盤完成，高度相依於鍵盤快捷鍵。 以下簡介我如何在使用同樣鍵盤同樣 layout 的前提下，在兩種系統間保持同樣的操作習慣，而不會由於快捷鍵不一樣等問題導致精神分裂，並且分享一些 mac 下的我覺得頂級的小工具 如何從 windows 過渡到 mac 並維持相近的操作習慣一般來說，日常基本使用行為包括瀏覽器搜尋資料(chrome)、用筆記軟體記筆記(e.g., obsidian, heptabase)、開其他有的沒的小工具(e.g., todolist, amazon music)這些行為的操作方式與以下關鍵元素息息相關  keybinding、視窗間的切換方式 輸入法只要這些元素差異不大，或是 mac 更直覺，就不會水土不服。不幸的是有些差異 (尤其是 keybinding) 反直覺到無法忽視，以下將說明我如何以個人舒適的角度調整這些元素的。  調整 keybinding兩個系統的 keybinding...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/12/03/%E4%BD%BF%E7%94%A8-nginx-certbot-%E5%BF%AB%E9%80%9F%E5%B0%87-ssl-%E6%95%B4%E5%90%88%E9%80%B2%E8%87%AA%E6%9E%B6%E7%9A%84-http-%E7%B6%B2%E7%AB%99-with-docker-composer/" title="使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)"><img class="post-bg" src="https://files.sakana.tw/blog/https-with-nginx-and-certbot/Title.png" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/12/03/%E4%BD%BF%E7%94%A8-nginx-certbot-%E5%BF%AB%E9%80%9F%E5%B0%87-ssl-%E6%95%B4%E5%90%88%E9%80%B2%E8%87%AA%E6%9E%B6%E7%9A%84-http-%E7%B6%B2%E7%AB%99-with-docker-composer/" title="使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)">使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-12-02T16:11:12.000Z" title="Created 2023-12-03 00:11:12">2023-12-03</time></span></div><div class="content">近期想搞一個用來管理圖片的服務，找到了 immich 這款 self hosted 的圖片管理工具，在 localhost 試用了一小段時間，感覺很不錯，不管是 UI 還是搜尋功能都沒得挑剔，唯一可惜的是搜尋功能沒有整合 OCR。 直到當我想把他放上雲端，方便從外網存取時，才發現一個大問題，這個通過 docker compose 架起來的 server，只支援 http，雪特，這樣我不敢登入 server 的 web 介面耶…，於是開始了這工具的 https 升級之旅。 雖然這是我設定 immich 的記錄，但大部分的 http server 應該都管用。 事前評估首先做個整理，方便收斂出實際的做法  手上的資源  從 gandi 購買，目前由 cloudflare DNS 託管的 domain - sakana.tw。   取得憑證的幾個方法  跟 gandi 買萬用憑證，人工塞憑證到 server 上：太貴了 從 cloudflare 抓萬用憑證，人工塞憑證到 server 上：可行 從 lets encrypt 申請憑證，網路上有一堆自動化更新憑證的教學資源：可行   將...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/" title="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值"><img class="post-bg" src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/Title.png" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/" title="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值">如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-09-16T10:01:54.000Z" title="Created 2023-09-16 18:01:54">2023-09-16</time></span></div><div class="content">前言去年有段時間蠻閒的，划 FB 時看到有人推薦這款遊戲，就來玩玩看。玩到一半發現這遊戲有點農，地圖還很大要走很久…但我只想趕快破完看劇情。最後受不了了，決定直接開 CE 改數據。在逆向的過程中，意外的克服不少問題，學到了不少，於是決定記錄下來。 這篇文章會以這款遊戲的實際情境為例，講述我如何推測、找尋切入點，各種 CE 的操作小技巧，再到 CE 做不下去時，可以進行的其他選擇。整個過程和操作細節上，應該還有很多能改進的點，若各路大神路過，有一些感覺能更好的做法，也懇請教教小弟…。 目標說明Sequel Blight  基本上遊戲過程就是解劇情，跑地圖打怪、升等打王，解隱藏地圖和道具等等的。而戰鬥機制的部分，就是常見的操控腳色跑地圖，撞到怪物時會進入戰鬥回合這樣。還有不少沒提到，總之這遊戲的元素很豐富，像是可以轉的職業就有 10 幾個，當 RPG...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img class="post-bg" src="/images/star_flower_clip.jpg" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="DEVCORE-Wargame-2023"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023">DEVCORE-Wargame-2023</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-09-03T14:11:02.000Z" title="Created 2023-09-03 22:11:02">2023-09-03</time></span></div><div class="content">first-flag(有點忘記，應該是叫這名子沒錯)隨便輸入一串 user，登入後會要你輸入 flag，超過 5 分會給你這一題的 flag   (搞笑的是我一開始以為 flag 是 FLAG&#123;this_is_the_first_flag&#125;，拿去輸入想說怎麼是錯的) 看 session，感覺有點東西，於是 base64 decode，嗯？感覺 exp 可以用。 123456789100...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/08/27/HITCON-2023-ReCTF/" title="HITCON-2023-ReCTF"><img class="post-bg" src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="HITCON-2023-ReCTF"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/08/27/HITCON-2023-ReCTF/" title="HITCON-2023-ReCTF">HITCON-2023-ReCTF</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-08-27T12:50:27.000Z" title="Created 2023-08-27 20:50:27">2023-08-27</time></span></div><div class="content">緣由上周被公司派去參加了 hitcon 2023，看到年齡相近的大神們那超高水準的研究以及充滿夢想(?)的眼神後，被激勵到，又燃起 hacker 的熱情了。剛好想到自己有個夢想就是挖洞拿獎金達到財富自由，由於在台上的講者們都曾是 ctf 王，打 ctf 似乎是個鍛鍊挖洞技能的好方法，於是打算如法炮製，試著打打看，看一年後有沒有機會真的變成挖洞高手，挖洞賺大錢。 在這次 hitcon 2023 我玩了 devcore wargame 和 rectf，DEVCORE-Wargame-2023 的部分，在活動的兩天內我只解的掉一題水題…(儘管我仍然花了 5 個小時)，rectf 因為開放時間比較久，費盡洪荒之力總算是解了兩題。在這邊放上 writeup 和簡單的心得，記錄一下。 ReCTF顧名思義，這個活動是將從前 hitcon ctf 出過的題目進行復刻。 papapa 環境：Hitcon-Ctf-2016-Papapa 建置環境   一進來頁面就長這樣，啥 input 都沒有，看了 cookie 感覺也沒能控制的點，我無言了…。通靈了一下子，決定爬文搜 papapa...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://files.sakana.tw/blog/Theme/avatar-arona.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Fish Yu</div><div class="author-info-description">我不是檔案玩家</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/a45s67"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/" title="分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法"><img src="/images/star_flower_clip.jpg" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法"/></a><div class="content"><a class="title" href="/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/" title="分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法">分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法</a><time datetime="2025-01-29T16:00:02.000Z" title="Created 2025-01-30 00:00:02">2025-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/03/%E4%BD%BF%E7%94%A8-nginx-certbot-%E5%BF%AB%E9%80%9F%E5%B0%87-ssl-%E6%95%B4%E5%90%88%E9%80%B2%E8%87%AA%E6%9E%B6%E7%9A%84-http-%E7%B6%B2%E7%AB%99-with-docker-composer/" title="使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)"><img src="https://files.sakana.tw/blog/https-with-nginx-and-certbot/Title.png" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)"/></a><div class="content"><a class="title" href="/2023/12/03/%E4%BD%BF%E7%94%A8-nginx-certbot-%E5%BF%AB%E9%80%9F%E5%B0%87-ssl-%E6%95%B4%E5%90%88%E9%80%B2%E8%87%AA%E6%9E%B6%E7%9A%84-http-%E7%B6%B2%E7%AB%99-with-docker-composer/" title="使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)">使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)</a><time datetime="2023-12-02T16:11:12.000Z" title="Created 2023-12-03 00:11:12">2023-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/" title="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值"><img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/Title.png" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值"/></a><div class="content"><a class="title" href="/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/" title="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值">如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值</a><time datetime="2023-09-16T10:01:54.000Z" title="Created 2023-09-16 18:01:54">2023-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img src="/images/star_flower_clip.jpg" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="DEVCORE-Wargame-2023"/></a><div class="content"><a class="title" href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023">DEVCORE-Wargame-2023</a><time datetime="2023-09-03T14:11:02.000Z" title="Created 2023-09-03 22:11:02">2023-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/27/HITCON-2023-ReCTF/" title="HITCON-2023-ReCTF"><img src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg" onerror="this.onerror=null;this.src='/images/crying_chopper.jpg'" alt="HITCON-2023-ReCTF"/></a><div class="content"><a class="title" href="/2023/08/27/HITCON-2023-ReCTF/" title="HITCON-2023-ReCTF">HITCON-2023-ReCTF</a><time datetime="2023-08-27T12:50:27.000Z" title="Created 2023-08-27 20:50:27">2023-08-27</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/CTF/" style="font-size: 1.45em; color: rgb(75, 50, 101);">CTF</a><a href="/tags/Web/" style="font-size: 1.15em; color: rgb(198, 50, 123);">Web</a><a href="/tags/workflow-mac-windows/" style="font-size: 1.15em; color: rgb(190, 186, 170);">workflow,mac,windows</a><a href="/tags/Reverse-Engineering/" style="font-size: 1.15em; color: rgb(114, 50, 78);">Reverse Engineering</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              January 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/12/">
+            <span class="card-archive-list-date">
+              December 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/09/">
+            <span class="card-archive-list-date">
+              September 2023
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/08/">
+            <span class="card-archive-list-date">
+              August 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">5</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-29T17:09:14.431Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Fish Yu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

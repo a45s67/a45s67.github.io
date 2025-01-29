@@ -1,0 +1,603 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值 | FlyFish's Blog</title><meta name="author" content="Fish Yu"><meta name="copyright" content="Fish Yu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言去年有段時間蠻閒的，划 FB 時看到有人推薦這款遊戲，就來玩玩看。玩到一半發現這遊戲有點農，地圖還很大要走很久…但我只想趕快破完看劇情。最後受不了了，決定直接開 CE 改數據。在逆向的過程中，意外的克服不少問題，學到了不少，於是決定記錄下來。 這篇文章會以這款遊戲的實際情境為例，講述我如何推測、找尋切入點，各種 CE 的操作小技巧，再到 CE 做不下去時，可以進行的其他選擇。整個過程和操作細節">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值">
+<meta property="og:url" content="https://sakana.tw/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/index.html">
+<meta property="og:site_name" content="FlyFish&#39;s Blog">
+<meta property="og:description" content="前言去年有段時間蠻閒的，划 FB 時看到有人推薦這款遊戲，就來玩玩看。玩到一半發現這遊戲有點農，地圖還很大要走很久…但我只想趕快破完看劇情。最後受不了了，決定直接開 CE 改數據。在逆向的過程中，意外的克服不少問題，學到了不少，於是決定記錄下來。 這篇文章會以這款遊戲的實際情境為例，講述我如何推測、找尋切入點，各種 CE 的操作小技巧，再到 CE 做不下去時，可以進行的其他選擇。整個過程和操作細節">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://files.sakana.tw/blog/Sequel-Blight-Reversing/Title.png">
+<meta property="article:published_time" content="2023-09-16T10:01:54.000Z">
+<meta property="article:modified_time" content="2025-01-27T10:17:38.961Z">
+<meta property="article:author" content="Fish Yu">
+<meta property="article:tag" content="Reverse Engineering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.sakana.tw/blog/Sequel-Blight-Reversing/Title.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值",
+  "url": "https://sakana.tw/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/",
+  "image": "https://files.sakana.tw/blog/Sequel-Blight-Reversing/Title.png",
+  "datePublished": "2023-09-16T10:01:54.000Z",
+  "dateModified": "2025-01-27T10:17:38.961Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Fish Yu",
+      "url": "https://sakana.tw/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/dolphin.svg"><link rel="canonical" href="https://sakana.tw/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg" style="background-image: url(url(/images/default_cover.png));"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://files.sakana.tw/blog/Theme/avatar-arona.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><span> Posts</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://files.sakana.tw/blog/Sequel-Blight-Reversing/Title.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">FlyFish's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><span> Posts</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-09-16T10:01:54.000Z" title="Created 2023-09-16 18:01:54">2023-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-01-27T10:17:38.961Z" title="Updated 2025-01-27 18:17:38">2025-01-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>27mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年有段時間蠻閒的，划 FB 時看到有人推薦這款遊戲，就來玩玩看。<br>玩到一半發現這遊戲有點農，地圖還很大要走很久…但我只想趕快破完看劇情。<br>最後受不了了，決定直接開 CE 改數據。在逆向的過程中，意外的克服不少問題，學到了不少，於是決定記錄下來。</p>
+<p>這篇文章會以這款遊戲的實際情境為例，講述我如何推測、找尋切入點，各種 CE 的操作小技巧，再到 CE 做不下去時，可以進行的其他選擇。<br>整個過程和操作細節上，應該還有很多能改進的點，若各路大神路過，有一些感覺能更好的做法，也懇請教教小弟…。</p>
+<h1 id="目標說明"><a href="#目標說明" class="headerlink" title="目標說明"></a>目標說明</h1><h2 id="Sequel-Blight"><a href="#Sequel-Blight" class="headerlink" title="Sequel Blight"></a>Sequel Blight</h2><img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-1.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-3.png" class="" width="450">
+<p>基本上遊戲過程就是解劇情，跑地圖打怪、升等打王，解隱藏地圖和道具等等的。而戰鬥機制的部分，就是常見的操控腳色跑地圖，撞到怪物時會進入戰鬥回合這樣。<br>還有不少沒提到，總之這遊戲的元素很豐富，像是可以轉的職業就有 10 幾個，當 RPG 玩的話確實也蠻耐玩的。</p>
+<blockquote>
+<p>雖然遊戲本身是成人向，但這篇文章不含任何成人內容，可以放心瀏覽😂。</p>
+</blockquote>
+<h2 id="目標"><a href="#目標" class="headerlink" title="目標"></a>目標</h2><p>我的訴求是盡快結束每一場戰鬥，並且減少跑圖的時間，故要做的事有以下幾點：</p>
+<ol>
+<li>修改角色數值，如攻擊力、血量</li>
+<li>調整地圖人物移動速度，讓移動快一點</li>
+</ol>
+<h1 id="修改角色數值"><a href="#修改角色數值" class="headerlink" title="修改角色數值"></a>修改角色數值</h1><p>修改角色面板攻擊力、血量的步驟 (以下簡稱 atk、hp)</p>
+<ol>
+<li>取得這些角色數值的 memory address</li>
+<li>然後就可以修改了</li>
+</ol>
+<h2 id="取得角色數值的-address"><a href="#取得角色數值的-address" class="headerlink" title="取得角色數值的 address"></a>取得角色數值的 address</h2><p>好像就這麼簡單。但要怎麼這些取得角色數值呢？直接搜尋會發現找不到這些值，於是猜測這些值存到 memory 前有處理過。(如下圖，搜尋攻擊力 302，過濾幾次後會發現搜尋結果一片空)</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-4.png" class="" width="450"> 
+
+<p>推測這類型的數值，應該是由角色基礎數值、職業加成、裝備加成等等加總起來的，目標放在角色基礎數值的話，由於沒辦法知道確切數值為何，搜尋的方法會變成：搜尋 unknown value -&gt; 回遊戲變動角色能力值 -&gt; 過濾出變動的 value -&gt; 回遊戲變動能力值 -&gt; … (無限 loop)。<br>但是，這流程有個 bug，我想不到要怎麼變動角色基礎能力值，話說能想變就變的話我也不用 CE 了。<br>卡了一段時間後，突然想到，在遊戲進行的過程中我有取得一些提升能力值的藥水，運氣不錯，這邊直接拿來試試。<br>以活力之水(效果是sp+5)為例，流程是先取得這道具數量的 address，然後一口氣把活力之水數量調大，再慢慢試角色能力值。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-5.png" class="" width="450">
+<p>(過濾方法基本上就是 unknown value -&gt; decreased value -&gt; decreased value …)</p>
+<p>把幾個看起來很像的 address 抓下來，隨便改個數字測試一下，確認 <code>0x0E481A8</code> 就是活力藥水的數量，同時還能發現一件事，記憶體中實際的數字是 <code>2x+1</code>，例如我藥水剩 4 瓶時，記憶體內容為 9，推測攻擊力、血量也是同理。<br>現在拿活力藥水狂加在拉比身上，過濾出 <code>0x14F53A24</code> 是人物基礎 sp 的位置。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-6.png" class="" width="450">
+
+<h2 id="使用-Poninter-Scan-找出指向-address-的-pointer"><a href="#使用-Poninter-Scan-找出指向-address-的-pointer" class="headerlink" title="使用 Poninter Scan 找出指向 address 的 pointer"></a>使用 Poninter Scan 找出指向 address 的 pointer</h2><p>接下來有幾條路可以走</p>
+<ol>
+<li>由於人物屬性(hp, sp, atk 等等)應該會宣告在同一個 stuct 內，故 hp、atk 的 address 應該在 sp 附近。對這附近的值亂改一遍，看看哪個是 hp, atk。</li>
+<li>還沒想到…(單純覺得還能想到其他條路)</li>
+</ol>
+<p>為了進行第一個方法，必須先把 sp 的 pointer 存下來，避免改壞 struct 造成遊戲 crash，遊戲重開後各物件的 address 通常都會被重分配一次，有存下實際的 pointer 才不會要再重找一遍 sp 的 address。<br>這時就要用到 Cheat Engine 的屌功能了 - <strong>Pointer Scan</strong> (在 Memory view 視窗的 Tools 選單中)，</p>
+<p>簡單來說，就是掃一遍<code>0x14F53A24</code>，CE 會找出所有指向到這位置的 pointer，接著把遊戲關掉重開，Rescan memory 出還是有效的 pointer，如下圖</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-8.png" class="" width="450">
+<p>重開遊戲後，跑一次 Rescan memory，過濾出正確的 pointer。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-7.png" class="" width="450">
+
+<h2 id="使用-dissect-struct-觀察周遭變數"><a href="#使用-dissect-struct-觀察周遭變數" class="headerlink" title="使用 dissect struct 觀察周遭變數"></a>使用 dissect struct 觀察周遭變數</h2><p>接下來就可以開始大膽的亂改 memory 了，觀察上一步很屌的 pointer scan 結果，可以注意到 sp (<code>0x0EF7A374</code>)似乎位於 pointer 指向的 address 再 +4 的位置，強烈懷疑這 address 是拉比的人物屬性 struct，丟去 dissect struct 看一下。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-9.png" class="" width="450">
+<p>因為角色狀態的呈現是一條 hp 一條 sp，若第二個 value (offset +4) 是 sp，那第一個 value (offset +0) 應該是 hp，依此類推並測試確認後，這 struct 的 member 應該如下：</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-10.png" class="" width="450">
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">character_status</span> &#123;</span><br><span class="line">    <span class="type">int</span> hp;</span><br><span class="line">    <span class="type">int</span> sp;</span><br><span class="line">    <span class="type">int</span> atk;</span><br><span class="line">    <span class="type">int</span> def;</span><br><span class="line">    <span class="type">int</span> matk;</span><br><span class="line">    <span class="type">int</span> mdef;</span><br><span class="line">    <span class="type">int</span> spd;</span><br><span class="line">    <span class="type">int</span> luk;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>整理一下 Cheat Table(以下以 CT 代稱)，把 hp、sp 之類的記下來，這裡又要再提到 CE 的一個 feature，我們可以新增一個 address，address 寫 +0, +4 之類的 offset 描述，然後用滑鼠把它拉到做為 base address 的 pointer 下，這個 address 就會自動把 base address 加上來。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-11.png" class="" width="450">
+<p>現在我們獲得了代表 rabi 狀態的 address，能夠隨便改 rabi 的攻擊力和血量了。那其他角色呢？</p>
+<p>再通靈一次，依據感覺，rabi、uula 等等角色會有一個角色物件，存有各種 member 代表狀態、道具、職業等等資訊。<br>然後會有玩家物件，member 包括遊戲進行時的各種數據、各個角色物件等等。在這邊假設角色物件會用指標去存，所以 uula 等角色物件的指標應該都存在 rabi 指標的旁邊，由於 rabi 是第一位角色，其他三位角色理論上是在 <code>+4</code>, <code>+8</code>, <code>+C</code> 的位置。(當然也有可能 member 是完整的角色物件，而不是指標，那這個假設就不成立了)。<br>把可以調的 offset 都試了一遍，還真的給我試成功，某一段 pointer <code>offset +18</code> 代表 rabi，改成 <code>offset +1B,+20,+24</code> 後，發現分別代表其他三位女角，現在有辦法任意修改 4 位女主角的基本數值了。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-12.png" class="" width="450">
+
+<p>運氣很好，給我猜中，省下了重新找指標的時間…</p>
+<blockquote>
+<p>其實當時我並沒有通靈這麼多，找到一個角色後就沒做下去了，在寫這篇文章把流程重跑一遍後，才想到好像可以這樣試試。</p>
+</blockquote>
+<h1 id="修改移動速度"><a href="#修改移動速度" class="headerlink" title="修改移動速度"></a>修改移動速度</h1><p>當人物在地圖上移動時，有兩種狀態，一般情況下是正常移動速度，按住 shift 時是緩慢移動速度。我的目標就是把正常的移動速度改快一點。</p>
+<blockquote>
+<p><strong>2st round 發現的事</strong><br>後來重新審視一遍，實際上是分成一般速度和衝刺，這遊戲通常都在衝刺狀態，按住 shift 時會回到一般速度。如果事先有釐清出這件事，說不定我接下來的逆向過程會直接順利好幾倍…🥹。</p>
+</blockquote>
+<p>該完成的步驟有</p>
+<ol>
+<li>取得人物移動速度的 address</li>
+<li>然後就可以修改了</li>
+</ol>
+<h2 id="過濾出可能代表人物速度的-address"><a href="#過濾出可能代表人物速度的-address" class="headerlink" title="過濾出可能代表人物速度的 address"></a>過濾出可能代表人物速度的 address</h2><p>我們不知道移動速度的數字是多少，所以再來一次 unknown value 搜索大法：<br>unknown value-&gt; shift 按住移動人物 -&gt; changed value -&gt; 放掉 shift 移動人物 -&gt; changed value -&gt; 隨便做幾個動作後移動人物 -&gt; unchanged value -&gt; … (infinite loop)</p>
+<p>找到了 3 個看起來很像是移動速度的值，正常時是 11，按下 shift 會變成 9。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-13.png" class="" width="450">
+<p>但是把這 3 個 address 的值鎖在 11，會發現一點效果都沒有。<br>推測鎖值無效的原因，是這不是正確的 address，可能只是處理人物速度時，暫時分配的 variable 而已，而 CE 的鎖值其實是每 100ms 鎖一次 (可從設定調整)，所以鎖不到。<br>我猜邏輯可能是這樣：</p>
+<ul>
+<li>正常速度的 value 放在另外一個 address 上，人物移動時從這 address 拿值，取得人物速度。</li>
+<li>當偵測到 shift 按下時，進入另一個邏輯，這邏輯有兩種可能<ul>
+<li>可能是正常情況下的人物速度 -2</li>
+<li>或是 shift 的速度也是放在另外一個 address 存著。</li>
+</ul>
+</li>
+</ul>
+<h2 id="追查存取這些-address-的代碼段"><a href="#追查存取這些-address-的代碼段" class="headerlink" title="追查存取這些 address 的代碼段"></a>追查存取這些 address 的代碼段</h2><p>接下來會使用兩個 CE 的屌功能：</p>
+<ol>
+<li><code>Find out what access this address</code></li>
+<li><code>Find out what writes to this address</code></li>
+</ol>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-14.png" class="" width="450">
+
+<p>依據目前的狀況，我猜這 3 個 address 有兩種可能</p>
+<ol>
+<li>從真正的正常速度或 shift 速度的 variable 拿值，複製過來的，作為人物速度相關處理的 tmp value : 使用 Find out what writes to this address</li>
+<li>人物真的要移動時，真的會套用的實際速度的 value : 使用 Find out what access to this address</li>
+</ol>
+<p>不如就先追第 2 種的狀況看看，追了發現都是同一段程式碼在處理 &#x3D; &#x3D;…不論我是否有按 shift。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-15.png" class="" width="450">
+<p>那第 1 種呢，也可發現 3 個 address 都是相同的幾段程式碼在存取…不論我是否有按 shift。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-16.png" class="" width="450">
+
+<p>追一下第 1 種的代碼段，看起來 eax 是指向某個結構，依據 ecx,edx 值判斷要將 ebp (caller 呼叫這 func 時傳入的參數) 塞到 eax 物件中的哪一個 member variable。<br>推測 eax 應該是地圖角色的 “當前瞬間狀態”，eax + 0xA * 4 是 “當前速度”。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-17.png" class="" width="450">
+
+<p>所以 ebp 可能就是真正的移動速度，追一下 stack 看看 caller 是誰，有兩個方法</p>
+<ol>
+<li>下 condition 斷點，看一下斷點發生時的 call stack，找出 caller。</li>
+<li>剛剛 Find out what access this address 的介面中，有一個視窗會顯示 access 時的 stack 內容</li>
+</ol>
+<p>放上兩種方法的截圖：</p>
+<ol>
+<li>設個準確的條件，避免斷點到除了分配人物速度時的其他狀況。<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-18.png" class="" width="450"></li>
+<li>或是看一下 access 時的 stack 內容，因為 CE 很屌，我們可以一眼看出來哪些是指向程式碼段的，比較懶一點不去追 stack 多大的話，通常比較上面的那一個會是當前 func 的 return address(只要 caller 參數不是傳 func pointer 之類的)，於是我們就找到 caller 是誰了 (<code>RGSS300.dll + 0x2D36E</code>)。<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-19.png" class="" width="450"></li>
+</ol>
+<h2 id="追查-caller-呼叫進入這代碼段時傳入的參數"><a href="#追查-caller-呼叫進入這代碼段時傳入的參數" class="headerlink" title="追查 caller 呼叫進入這代碼段時傳入的參數"></a>追查 caller 呼叫進入這代碼段時傳入的參數</h2><p>看一下 caller 這邊 (<code>RGSS300.dll + 0x2D36E</code>) 怎麼呼叫的，反推回呼叫 func 時這些 register 的值。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-20.png" class="" width="450">
+<p>算了我好像推不回來各 register 的值，直接下斷點。這裡下斷點有兩個方式</p>
+<ol>
+<li>設 condition 斷點 (e.g. 像是 ECX &#x3D;&#x3D; 0x2fc1 &amp;&amp; EDI &#x3D;&#x3D; 0xb 之類的，注意 register 要大寫如 EAX，不行小寫如 eax) </li>
+<li>做 AOB injection，裡面寫幾個 cmp 條件，斷點下在符合條件時會走到的指令上</li>
+</ol>
+<p>因為第 1 種的斷點下了之後，遊戲會瞬間 lag 到不可思議，我猜他的 softw&#x2F;blogare bp 是用 lua 做的。所以我推薦第 2 種，作法如下</p>
+<ol>
+<li>Tools -&gt; Auto Assemble -&gt; template 選 AOB injection</li>
+<li>開始寫 asm<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[ENABLE]</span><br><span class="line">aobscanmodule(DebugNormalSpeed,RGSS300.dll,83 C0 FC 83 C2 0C 89 16 89 46 04 8B) // should be unique</span><br><span class="line">alloc(newmem,$1000)</span><br><span class="line"></span><br><span class="line">label(code)</span><br><span class="line">label(return)</span><br><span class="line"></span><br><span class="line">newmem:</span><br><span class="line">  cmp edi, 0xB</span><br><span class="line">  jne code</span><br><span class="line">  cmp ecx, 0x2FC1 // 這裡可以下一個斷點</span><br><span class="line">  jne code </span><br><span class="line">  nop // 或下在這裡也行</span><br><span class="line"></span><br><span class="line">code:</span><br><span class="line">  add eax,-04</span><br><span class="line">  add edx,0C</span><br><span class="line">  jmp return</span><br><span class="line"></span><br><span class="line">DebugNormalSpeed:</span><br><span class="line">  jmp newmem</span><br><span class="line">  nop</span><br><span class="line">return:</span><br><span class="line">registersymbol(DebugNormalSpeed)</span><br><span class="line"></span><br><span class="line">[DISABLE]</span><br><span class="line"></span><br><span class="line">DebugNormalSpeed:</span><br><span class="line">  db 83 C0 FC 83 C2 0C</span><br><span class="line"></span><br><span class="line">unregistersymbol(DebugNormalSpeed)</span><br><span class="line">dealloc(newmem)</span><br></pre></td></tr></table></figure></li>
+<li>存到 cheat table 中</li>
+</ol>
+<p>這樣就寫好了一個簡單的 injection 了，隨時可以開啟關閉 cheat table 上你剛寫好的 asm script。<br>開啟時，CE 會分配 asm 一塊 memory，並將符合 AOB 特徵的程式段改成 jmp 到自製 asm 的 address。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-24.png" class="" width="450">
+<p>大概就是這樣子，可以做很多有的沒的事情，總之下個斷點簡單檢查一下，可以知道</p>
+<ol>
+<li>edi &#x3D; 0xb 時 ecx 都是 0x2FC1</li>
+<li>這時 eax &#x3D; 0x326010c (被傳入 func 的參數 - edi 值為 [eax-4])</li>
+</ol>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-25.png" class="" width="450">
+<p>所以 <code>0x326010c - 4</code> 是 normal speed 的 adr 嗎？看了一下這個值會一直亂跳，看來不是，馬的。他只有在 <code>edi = 0xb</code> 和 <code>ecx = 0x2fc1</code> 時才會是正常速度值 <code>0xB</code>。<br>這要怎麼追，我破防了。</p>
+<h2 id="從人物-x-軸-address-切入"><a href="#從人物-x-軸-address-切入" class="headerlink" title="從人物 x 軸 address 切入"></a>從人物 x 軸 address 切入</h2><p>因為暫時不知道怎麼往回追了，先改用其他方式試試。<br>假設地圖角色的各項狀態數值，是存在一個 struct 裡的，member 可能包括 xy 軸、可否移動、可否無視怪物、人物移動速度等等，那我們先抓出 xy 軸，然後觀察附近 memory 的值的變動，說不定能找出人物移動速度？！</p>
+<p>首先人物隨便移動幾下，過濾出 x 軸 adr。然後看一下附近的值，還真的有跟我們剛剛看到一樣是 0xB 的 value，而且按下 shift 也會變成 0x9，可能真的跟速度有關，在這邊先幫他命名為 speed。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-26.png" class="" width="450">
+<p>但我們調整 speed 的值，人物的移動速度仍然不會變，而且會被改回 0xB。使用上一段的方法找出讀取寫入的代碼段，發現還是回到了相同的地方 <code>RGSS300.dll + 0x2D369</code>，破防…。</p>
+<h2 id="反向找出各-register-的內容和相關的代碼段"><a href="#反向找出各-register-的內容和相關的代碼段" class="headerlink" title="反向找出各 register 的內容和相關的代碼段"></a>反向找出各 register 的內容和相關的代碼段</h2><p>為方便，在這邊先放上<code>RGSS300.dll + 0x2D34D</code> ~ <code>RGSS300.dll + 0x2D369</code> 的代碼段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">RGSS300.dll+2D348 - jmp RGSS300.dll+2D1D6</span><br><span class="line">RGSS300.dll+2D34D - mov eax,[esi+04] // 段落的開始</span><br><span class="line">RGSS300.dll+2D350 - mov ecx,[edx+04]</span><br><span class="line">RGSS300.dll+2D353 - mov ebx,[edx+08]</span><br><span class="line">RGSS300.dll+2D356 - mov edi,[eax-04]</span><br><span class="line">RGSS300.dll+2D359 - add eax,-04</span><br><span class="line">RGSS300.dll+2D35C - add edx,0C</span><br><span class="line">RGSS300.dll+2D35F - mov [esi],edx</span><br><span class="line">RGSS300.dll+2D361 - mov [esi+04],eax</span><br><span class="line">RGSS300.dll+2D364 - mov esi,[esi+14]</span><br><span class="line">RGSS300.dll+2D367 - push edi</span><br><span class="line">RGSS300.dll+2D368 - push ecx</span><br><span class="line">RGSS300.dll+2D369 - call RGSS300.dll+285E0</span><br><span class="line">RGSS300.dll+2D36E - mov esi,[esp+3C]</span><br><span class="line">RGSS300.dll+2D372 - add esp,08</span><br><span class="line">RGSS300.dll+2D375 - jmp RGSS300.dll+2D1D6 // 段落的結束，跳回 RGSS300.dll+2D1D6</span><br></pre></td></tr></table></figure>
+<p>總之，目標是找出到底從哪邊進來 <code>RGSS300.dll + 0x2D34D</code> 的，這樣我就有線索找出 <code>edi = 0xB</code> 之前的 esi、edx 等等 register 是被誰分配的，經過一番快速的分析，大概就像下面，感覺類似做某件事時會呼叫對應的 func pointer(<code>RGSS300.dll + 0x2F598</code>) 這樣。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-27.png" class="" width="450">
+
+<p>下記憶體寫入斷點，追寫入 esi+4 (0x3DCB114) 且 condition 是 <code>readInterger(0x3DCB114) == 0xB</code> 時的位置，找到了 <code>RGSS300.dll+2D26E</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">RGSS300.dll+2D241 - mov eax,[edx+08]</span><br><span class="line">RGSS300.dll+2D244 - mov ecx,[edx+04] // 3. 想記錄下來的值</span><br><span class="line">RGSS300.dll+2D247 - add edx,0C</span><br><span class="line">RGSS300.dll+2D24A - mov [esi],edx</span><br><span class="line">RGSS300.dll+2D24C - push eax</span><br><span class="line">RGSS300.dll+2D24D - mov eax,[esi+18]</span><br><span class="line">RGSS300.dll+2D250 - mov edx,ecx // 2. 在這下 AOB injection，看看 edx + 0x4 和 ecx 的值這時為何，如果是 0xB 就中了</span><br><span class="line">RGSS300.dll+2D252 - mov ecx,[ebp+08]</span><br><span class="line">RGSS300.dll+2D255 - call RGSS300.dll+28140 // 1. 裡面有一個 sar edx,1，表示取得 edx/2，推測 edx 是關鍵值</span><br><span class="line">RGSS300.dll+2D25A - add esp,04</span><br><span class="line">RGSS300.dll+2D25D - mov ecx,[esi+04]</span><br><span class="line">RGSS300.dll+2D260 - lea edx,[ecx+000000B4]</span><br><span class="line">RGSS300.dll+2D266 - cmp edx,esi</span><br><span class="line">RGSS300.dll+2D268 - jae RGSS300.dll+2F48D</span><br><span class="line">RGSS300.dll+2D26E - mov [ecx],eax // 這裡寫入了 0xB 的值給疑似是代表 normal speed 的暫存變數(0x3DCB114)</span><br><span class="line">RGSS300.dll+2D270 - add dword ptr [esi+04],04</span><br><span class="line">RGSS300.dll+2D274 - jmp RGSS300.dll+2D1D6</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>如下為針對 2. 的 AOB 腳本，這腳本做的事就是額外宣告兩個變數，將這瞬間 ecx 和 edx+4 的值存下來，以便斷點命中時可以確認，不然值會被後來的指令改掉。</p>
+<ul>
+<li>AOB <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">[ENABLE]</span><br><span class="line">aobscanmodule(HookSpeedAlloc_lv2,RGSS300.dll,8B D1 8B 4D 08 E8 E6) // should be unique</span><br><span class="line">alloc(newmem,$1000)</span><br><span class="line">alloc(variables, 0x100)</span><br><span class="line"></span><br><span class="line">label(ecx_val)</span><br><span class="line">label(edx_add_4_val)</span><br><span class="line">label(code)</span><br><span class="line">label(return)</span><br><span class="line"></span><br><span class="line">variables:</span><br><span class="line">ecx_val:</span><br><span class="line">  dd 0</span><br><span class="line">edx_add_4_val:</span><br><span class="line">  dd 0</span><br><span class="line"></span><br><span class="line">newmem:</span><br><span class="line">  mov [ecx_val], ecx</span><br><span class="line">  mov [edx_add_4_val], edx</span><br><span class="line">  add [edx_add_4_val], 4</span><br><span class="line">code:</span><br><span class="line">  mov edx,ecx</span><br><span class="line">  mov ecx,[ebp+08]</span><br><span class="line">  jmp return</span><br><span class="line"></span><br><span class="line">HookSpeedAlloc_lv2:</span><br><span class="line">  jmp newmem</span><br><span class="line">return:</span><br><span class="line">registersymbol(HookSpeedAlloc_lv2)</span><br><span class="line"></span><br><span class="line">[DISABLE]</span><br><span class="line"></span><br><span class="line">HookSpeedAlloc_lv2:</span><br><span class="line">  db 8B D1 8B 4D 08</span><br><span class="line"></span><br><span class="line">unregistersymbol(HookSpeedAlloc_1v2)</span><br><span class="line">dealloc(newmem)</span><br><span class="line">dealloc(ecx_val,$4)</span><br><span class="line">dealloc(edx_add_4_val,$4)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>(或者也可以用 CE 跑 lua 腳本，大概的寫法像下面這樣)<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 這是我之前拿來追角色狀態寫的腳本</span><br><span class="line">character = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debugger_onBreakpoint</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">if</span> (EIP == <span class="number">0x1008D272</span> ) <span class="keyword">then</span></span><br><span class="line">      character = ESI</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(EIP == <span class="number">0x1008D28E</span>) <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(ESI==<span class="number">0x1445dff8</span>) <span class="keyword">then</span></span><br><span class="line">            printf(<span class="string">&quot;tirma: 0x%x&quot;</span>,character)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">end</span>        </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>        </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">debug_setBreakpoint(<span class="number">0x1008D272</span>)</span><br><span class="line">debug_setBreakpoint(<span class="number">0x1008D28E</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>但是，下斷點後我發現完全沒命中過，靠杯，原來 2. 這邊根本不會被走到。</p>
+<p>多下了幾次斷點反追代碼段後，感覺應該是下面這樣子，實際是從 <code>RGSS300.dll+2D25D</code> 開始。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RGSS300.dll+2D25D - mov ecx,[esi+04] // 從這邊開始會被走到</span><br><span class="line">RGSS300.dll+2D260 - lea edx,[ecx+000000B4]</span><br><span class="line">RGSS300.dll+2D266 - cmp edx,esi</span><br><span class="line">RGSS300.dll+2D268 - jae RGSS300.dll+2F48D</span><br><span class="line">RGSS300.dll+2D26E - mov [ecx],eax // 這裡寫入了 0xB 的值給疑似是代表 normal speed 的暫存變數(0x3DCB114)</span><br><span class="line">RGSS300.dll+2D270 - add dword ptr [esi+04],04</span><br><span class="line">RGSS300.dll+2D274 - jmp RGSS300.dll+2D1D6 // 回去一開始</span><br></pre></td></tr></table></figure>
+
+<h2 id="靜態逆向"><a href="#靜態逆向" class="headerlink" title="靜態逆向"></a>靜態逆向</h2><p>那<code>RGSS300.dll+2D25D</code>是從哪裡 jmp 過來的呢？翻了一遍 func pointers (<code>RGSS300.dll + 0x2F598</code>)的內容，沒有 pointer 的值是 <code>0x102D25D</code> ，看來是無法知道是哪裡來的了…只好召喚出好朋友 IDA 來看一下 cross reference 了。</p>
+<p>首先用 x32dbg 的 Scylla 把 module(RGSS300.dll) 當前的記憶體 dump 下來。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-38.png" class="" width="450">
+
+<blockquote>
+<p>要特別從記憶體 dump 的原因是如果直接把 RGSS300.dll 丟給 IDA，會發現<code>RGSS300.dll+2D25D</code>這邊的指令都還沒被載入，這是 runtime 才會載入的實作內容。</p>
+</blockquote>
+<p>餵給 IDA，得到這邊的 cross reference 了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">seg000:1002D25D loc_1002D25D:                           ; CODE XREF: sub_1002D1C0+1E3↓j</span><br><span class="line">seg000:1002D25D                                         ; sub_1002D1C0+59D↓j ...</span><br><span class="line">seg000:1002D25D                 mov     ecx, [esi+4]</span><br><span class="line">seg000:1002D260                 lea     edx, [ecx+0B4h]</span><br><span class="line">seg000:1002D266                 cmp     edx, esi</span><br><span class="line">seg000:1002D268                 jnb     loc_1002F48D</span><br><span class="line">seg000:1002D26E</span><br><span class="line">seg000:1002D26E loc_1002D26E:                           ; CODE XREF: sub_1002D1C0+254↓j - 0x1002D409</span><br><span class="line">seg000:1002D26E                                         ; sub_1002D1C0+2D2↓j - 100 - 0x1002D492</span><br><span class="line">seg000:1002D26E                 mov     [ecx], eax</span><br><span class="line">seg000:1002D270                 add     dword ptr [esi+4], 4</span><br><span class="line">seg000:1002D274                 jmp     loc_1002D1D6</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>至於 IDA decompile 後的結果我就沒附上了，大概就是這似乎是個超長一串的 while + switch loop，因為實在太長一大串，我自認搞不懂就先不看了。</p>
+<p>先對相關的代碼段下幾個條件斷點。</p>
+<ul>
+<li>對 0x1002d409 下條件斷點 EAX &#x3D;&#x3D; 0xB，斷不到。</li>
+<li>對 0x1002d492 下條件斷點 EAX &#x3D;&#x3D; 0xB，斷不到。</li>
+<li>對 0x1002d268 下條件斷點 EAX &#x3D;&#x3D; 0xB，斷不到。</li>
+</ul>
+<p>wtf…這什麼靈異現象，怎麼都斷不到的 na？</p>
+<h2 id="從人物-x-軸-address-切入-again"><a href="#從人物-x-軸-address-切入-again" class="headerlink" title="從人物 x 軸 address 切入 (again)"></a>從人物 x 軸 address 切入 (again)</h2><img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-28.png" class="" width="450">
+<p>因為追不出甚麼結果，我決定重新來，說不定 0xB 這個值根本就錯了，其實速度不是 0xB &#x3D; &#x3D;。<br>重新再找了一次 x 軸，這一次，先鎖值確認這個 x 軸真的 work，然後看了一下地址 <code>0x10FE5D94</code>，嗯?!對照 <code>RGSS300.dll</code> 的 module base <code>0x10000000</code>，這 address 好像是在 <code>RGSS300.dll</code> memory 段中耶，難道其實 x 軸之類的 info 是 module 的 global variable 嗎? 那我剛剛找到的 x 軸莫非是 tmp var？會不會之前找錯目標了，看一下周遭 memory 的變化，亂試一下。</p>
+<p>結果發現 +1C 的變數代表速度…，改成 0xB、0xD 之類的值後，人物速度真的會變快。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-29.png" class="" width="450">
+
+<p>至此完成了人物速度位置的尋找。定位到實際的 pointer 後就可以加一些小功能了，例如設定 hotkey 方便隨時調整自己的移動速度之類的。</p>
+<h1 id="修改移動速度-cont’d"><a href="#修改移動速度-cont’d" class="headerlink" title="修改移動速度 (cont’d)"></a>修改移動速度 (cont’d)</h1><p>耐心看到這邊的各位，心裡應該在想：”怎麼可能這麼會猜，還都給你猜中，通靈校隊喔？你這感覺很大一部分都像賽到的，運氣流的是不是？”。<br>沒錯，其實當初在上一章節中，我在反追 <code>0xB</code> 這個代表人物速度的值到底哪裡來的時候，就卡關卡到放棄了 (而且事實速度也不是 0xB…是 0x9)。放棄的原因是我對整個遊戲機制的實作處理真的沒有概念，除了不確定自己過濾出的值對不對，想要往回追也不知道要往哪裡追。逆向過的應該心有戚戚焉(吧？)，遇到動態分析時大海撈針的不確定感，以及靜態分析 (e.g. IDA) 那硬核的組語和 decompiled c++ 內容，我都在想我是不是在自虐。</p>
+<p>所以我放棄硬剛，轉向 google 找尋其他出路。</p>
+<ol>
+<li>搜 <code>RGSS300 dll</code> 時，發現這個遊戲是用 RPG Maker VX Ace 做的</li>
+<li>搜 <code>RPG Maker VX Ace Cheat</code> 之類的，發現有人寫了一個 RMVA(RPG Maker VX Ace) 用的 Cheater (<a target="_blank" rel="noopener" href="https://f95zone.to/threads/rpg-maker-vx-ace-cheat-menu.20567/">RMVA Cheat Menu</a> (<a target="_blank" rel="noopener" href="https://files.sakana.tw/blog/Sequel-Blight-Reversing/RPG%20VX%20ACE%20Cheat%20System.7z">載點</a>))</li>
+</ol>
+<h2 id="RMVA-Cheat-Menu"><a href="#RMVA-Cheat-Menu" class="headerlink" title="RMVA Cheat Menu"></a>RMVA Cheat Menu</h2><pre><code>這插件的本名應該叫 RMVA Cheat System 才對，純粹因為是他有 menu，所以我都叫他 cheat menu 或 cheater。
+</code></pre>
+<p>這個 Cheater 大概長這樣，第一次執行時會先進行安裝 Cheat Menu，接下來就可以 F8 叫出作弊選單了。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-30.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-31.png" class="" width="450">
+
+<p>來了，這個 Cheater 就是我的研究目標了，至少研究這個東西怎麼做，應該比逆向遊戲本身還簡單吧。<br>分成幾個階段</p>
+<ol>
+<li>初步理解這 Cheater 內各檔案的作用</li>
+<li>研究第一次執行的安裝機制，抓出安裝的內容</li>
+<li>理解這個 Cheater 如何實作的</li>
+</ol>
+<h2 id="Cheater-中各檔案的作用"><a href="#Cheater-中各檔案的作用" class="headerlink" title="Cheater 中各檔案的作用"></a>Cheater 中各檔案的作用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── Data_Cheat</span><br><span class="line">│   ├── 002_Cheat_All.txt</span><br><span class="line">│   ├── 002_Cheat_Text_Cheat.txt</span><br><span class="line">│   └── Scripts.rvdata2</span><br><span class="line">├── Game_Cheat.exe</span><br><span class="line">├── Game_cheat.ini</span><br><span class="line">└── System</span><br><span class="line">    └── RGSS301.dll</span><br></pre></td></tr></table></figure>
+<p>光看檔案名稱，可以感受到 RGSS301.dll 以及 Data_Cheat 下的檔案 002_Cheat_All.txt、002_Cheat_Text_Cheat.txt、Scripts.rvdata2 應該是放作弊功能的實作。<br>而 Game_cheat.exe、Game_cheat.ini、不排除是重新包裝過的遊戲入口點，是為了成功載入 Data_Cheat 的內容而附上的。</p>
+<h3 id="Game-cheat-exe、Game-cheat-ini"><a href="#Game-cheat-exe、Game-cheat-ini" class="headerlink" title="Game_cheat.exe、Game_cheat.ini"></a>Game_cheat.exe、Game_cheat.ini</h3><p>Game_cheat.ini 內容</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Game]</span></span><br><span class="line"><span class="attr">RTP</span>=RPGVXAce</span><br><span class="line"><span class="attr">Library</span>=System\RGSS301.dll</span><br><span class="line"><span class="attr">Scripts</span>=Data_Cheat\Scripts.rvdata2</span><br><span class="line"><span class="attr">Title</span>= RPG VX ACE Cheat System : dldb.info/blog/<span class="number">506</span></span><br></pre></td></tr></table></figure>
+
+<p>剛好遊戲本身也有一個 Game.ini，對比一下</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Game]</span></span><br><span class="line"><span class="attr">RTP</span>=RPGVXAce</span><br><span class="line"><span class="attr">Library</span>=System\RGSS300.dll</span><br><span class="line"><span class="attr">Scripts</span>=Data\Scripts.rvdata2</span><br><span class="line"><span class="attr">Title</span>=SEQUEL blight ver.<span class="number">2.10</span></span><br><span class="line"><span class="attr">Description</span>=(<span class="literal">no</span> description)</span><br><span class="line"><span class="attr">CreationDate</span>=<span class="number">1401520961</span></span><br></pre></td></tr></table></figure>
+<p>看起來 Game_cheat.ini 是用來指定 <code>Game_Cheat.exe</code> 載入 Cheater 相關模組的。(e.g. <code>RGSS301.dll</code>、<code>Scripts.rvdata2</code>)<br>咦？感覺 Game_Cheat.exe 是不是沒有用啊？試試將遊戲自帶的 Game.exe 改名成 <code>Game_Cheat.exe</code> 執行看看，作弊的效果確實沒有影響。</p>
+<p>總結一下，Game_Cheat.exe &#x3D;&#x3D; Game.exe，而載入設定檔的行為如下，看起來是依據主程式的檔名來決定的。</p>
+<ul>
+<li>執行 Game_Cheat.exe 會載入 Game_Cheat.ini</li>
+<li>執行 Game.exe 會載入 Game.ini</li>
+<li>Game.exe 改名成 Game123.exe 會直接開不了</li>
+</ul>
+<p>具體可參考 <a target="_blank" rel="noopener" href="http://miaowm5.github.io/RMVA-F1/RPGVXAcecn/rgss/rgss.html">RGSS 规格</a>，這篇對 RGSS3 包括 <code>Game.ini</code> 做了簡單的介紹。</p>
+<h3 id="RGSS301-dll"><a href="#RGSS301-dll" class="headerlink" title="RGSS301.dll"></a>RGSS301.dll</h3><p>遊戲本身自帶的為 RGSS300.dll，跟這個 RGSS301.dll 有啥差別呢，直接餵狗似乎只差在語言而已。</p>
+<ul>
+<li>300 &#x3D; 日文版和汉化日文版</li>
+<li>301 &#x3D; 英文版</li>
+</ul>
+<p>將 Game_cheat.ini 的 Library 改為 <code>System\RGSS300.dll</code> 後，仍然能正常運作，看起來 dll 也是不影響的。甚至直接使用 <a target="_blank" rel="noopener" href="https://www.rpgmakerweb.com/products/rpg-maker-vx-ace">RMVA</a> 產生一個 demo 遊戲，將產生的遊戲包當中的 Game.exe 和 RGSS301.dll 拿來用都可以。<br>在使用 RMVA 產生遊戲的同時，我也確定了這個遊戲引擎的支援語言是 ruby，推測 RGSS300.dll 就是用來載入 ruby 腳本之類的 dll 模組。</p>
+<p>參考資料：<a target="_blank" rel="noopener" href="https://rpg.blue/thread-411720-1-1.html">[已经解决] 关于RGSS301.dll 以及更高版本的dll</a></p>
+<h3 id="002-Cheat-All-txt、002-Cheat-Text-Cheat-txt、Scripts-rvdata2"><a href="#002-Cheat-All-txt、002-Cheat-Text-Cheat-txt、Scripts-rvdata2" class="headerlink" title="002_Cheat_All.txt、002_Cheat_Text_Cheat.txt、Scripts.rvdata2"></a>002_Cheat_All.txt、002_Cheat_Text_Cheat.txt、Scripts.rvdata2</h3><p>參考 <a target="_blank" rel="noopener" href="http://miaowm5.github.io/RMVA-F1/RPGVXAcecn/rgss/rgss.html">RGSS 规格</a>，<code>Scripts.rvdata2</code> 是加密後的程式邏輯。至於<code>002_Cheat_All.txt</code>、<code>002_Cheat_Text_Cheat.txt</code>，快速喵了一下應該是作弊選單邏輯，語言沒意外是 ruby。</p>
+<h3 id="重點整理"><a href="#重點整理" class="headerlink" title="重點整理"></a>重點整理</h3><ol>
+<li>Game_Cheat.exe 和 RGSS301.dll 跟遊戲本體內容沒有差別，而 Game_Cheat.ini 則是用來指定載入模組，跟作弊選單本身無關。</li>
+<li><code>Scripts.rvdata2</code>、<code>002_Cheat_All.txt</code>、<code>002_Cheat_Text_Cheat.txt</code> 應是作弊選單的核心實作</li>
+</ol>
+<h2 id="拆解安裝機制及內容"><a href="#拆解安裝機制及內容" class="headerlink" title="拆解安裝機制及內容"></a>拆解安裝機制及內容</h2><p>由先前整理的資訊，接下來重點將會放在分析 <code>Scripts.rvdata2</code>、<code>002_Cheat_All.txt</code>、<code>002_Cheat_Text_Cheat.txt</code> 上。</p>
+<p>第一次執行的安裝操作應該是 <code>Scripts.rvdata2</code> 的行為。<br>解密 rvdata2 的內容可以使用</p>
+<ol>
+<li>使用人家寫的 vim plugin<ul>
+<li><a target="_blank" rel="noopener" href="https://www.vim.org/scripts/script.php?script_id=4367">RGSS Script Editor Plugin - An RGSS Editor Plugin : vim online</a></li>
+<li>網頁好像掛了，最近看是沒辦法抓</li>
+</ul>
+</li>
+<li>自己寫一個 RMVA 的 ruby 腳本進行讀取<ul>
+<li>(這是逆向 Cheater 中 <code>Scripts.rvdata2</code> 的實作後發現的，使用 RGSS::load_data + Zlib::inflate)</li>
+<li><a target="_blank" rel="noopener" href="https://www.rubydoc.info/gems/openrgss/RGSS:load_data">Method: RGSS#load_data — Documentation for openrgss (0.1.5) (rubydoc.info)</a></li>
+</ul>
+</li>
+<li>使用人家寫的專案 <a target="_blank" rel="noopener" href="https://github.com/Solistra/rvpacker">rvpacker</a><ul>
+<li>我弄了一個小時就是灌不起來，放棄。推測是這個專案支援的 ruby 版本太舊。</li>
+</ul>
+</li>
+<li>拿 RMVA 內建的編輯器來用<ul>
+<li>建立遊戲專案後，直接把 <code>Scripts.rvdata2</code> 複製一份取代遊戲專案中的版本，把腳本編輯器打開後就能見到解密後的 <code>Scripts.rvdata2</code> 內容了。<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-32.png" class="" width="450"></li>
+</ul>
+</li>
+</ol>
+<p>以上幾種方法我都試過，我覺得 4. 是最方便的，最不用掃雷除錯 &#x3D; &#x3D;。附上拆出來的腳本，</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> FileTest.exist?(<span class="string">&quot;002_Cheat.txt&quot;</span>)</span><br><span class="line">  change_script_name = File.read(<span class="string">&quot;002_Cheat.txt&quot;</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  change_script_name = <span class="literal">false</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">change_script_text_1 = <span class="literal">false</span></span><br><span class="line">change_script_text_2 = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> FileTest.exist?(<span class="string">&quot;Data_Cheat/002_Cheat_All.txt&quot;</span>)</span><br><span class="line">  file = File.open(<span class="string">&quot;Data_Cheat/002_Cheat_All.txt&quot;</span>)</span><br><span class="line">  change_script_text_1 = file.read</span><br><span class="line">  file.close</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> FileTest.exist?(<span class="string">&quot;Data_Cheat/002_Cheat_Text_Cheat.txt&quot;</span>)</span><br><span class="line">  file = File.open(<span class="string">&quot;Data_Cheat/002_Cheat_Text_Cheat.txt&quot;</span>)</span><br><span class="line">  change_script_text_2 = file.read</span><br><span class="line">  file.close</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">change_text = []</span><br><span class="line">change_text[<span class="number">0</span>] = [<span class="string">&quot;Data/Items.rvdata2&quot;</span>,<span class="string">&quot;Data_Cheat/Items.rvdata2&quot;</span>]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">inflate</span>(<span class="params">string</span>)</span><br><span class="line">    zstream = <span class="title class_">Zlib::Inflate</span>.new()</span><br><span class="line">    buf = zstream.inflate(string)</span><br><span class="line">    zstream.finish</span><br><span class="line">    zstream.close</span><br><span class="line">    buf</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">deflate</span>(<span class="params">string, level = Zlib::<span class="variable constant_">BEST_COMPRESSION</span></span>)</span><br><span class="line">    z = <span class="title class_">Zlib::Deflate</span>.new(level)</span><br><span class="line">    dst = z.deflate(string, Zlib::<span class="variable constant_">FINISH</span>)</span><br><span class="line">    z.close</span><br><span class="line">    dst</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="variable">$cheat_scripts</span> = load_data(<span class="string">&quot;Data/Scripts.rvdata2&quot;</span>)</span><br><span class="line">  k = <span class="number">0</span></span><br><span class="line">  k2 = <span class="number">0</span></span><br><span class="line">  <span class="variable">$cheat_save_scripts</span> = []</span><br><span class="line">  </span><br><span class="line">  <span class="variable">$cheat_scripts</span>.each <span class="keyword">do</span> |<span class="params">unScript </span>|</span><br><span class="line">    k = k + <span class="number">1</span></span><br><span class="line">    nom = unScript[<span class="number">1</span>]</span><br><span class="line">    code = inflate(unScript[<span class="number">2</span>])</span><br><span class="line">      </span><br><span class="line">    code.gsub!(<span class="string">&quot;\x0D\n&quot;</span>) &#123; <span class="string">&quot;\n&quot;</span> &#125;</span><br><span class="line">    <span class="variable">@file</span> = File.open(<span class="string">&quot;009_script.txt&quot;</span>,<span class="string">&quot;w&quot;</span>)</span><br><span class="line">    <span class="variable">@file</span>.write(code)</span><br><span class="line">    <span class="variable">@file</span>.close</span><br><span class="line">    <span class="variable">@file</span> = File.open(<span class="string">&quot;009_script.txt&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line">    code = <span class="variable">@file</span>.read</span><br><span class="line">    <span class="variable">@file</span>.close</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> change_text</span><br><span class="line">      code.gsub!( i[<span class="number">0</span>] ) &#123; i[<span class="number">1</span>] &#125;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> change_script_name</span><br><span class="line">      <span class="keyword">if</span> unScript[<span class="number">1</span>] == change_script_name</span><br><span class="line">        msgbox(change_script_name + <span class="string">&quot; Cheat Add&quot;</span>)</span><br><span class="line">        <span class="variable">$cheat_save_scripts</span>.push([<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>,deflate(change_script_text_1)]) <span class="keyword">if</span> change_script_text_1</span><br><span class="line">        <span class="variable">$cheat_save_scripts</span>.push([<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>,deflate(change_script_text_2)]) <span class="keyword">if</span> change_script_text_2</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      code.gsub(<span class="regexp">/[   ]*rgss_main \&#123; SceneManager.run \&#125;/</span>) <span class="keyword">do</span></span><br><span class="line">        msgbox(unScript[<span class="number">1</span>] + <span class="string">&quot; Cheat Add&quot;</span>)</span><br><span class="line">        <span class="variable">$cheat_save_scripts</span>.push([<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>,deflate(change_script_text_1)]) <span class="keyword">if</span> change_script_text_1</span><br><span class="line">        <span class="variable">$cheat_save_scripts</span>.push([<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>,deflate(change_script_text_2)]) <span class="keyword">if</span> change_script_text_2</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="variable">$cheat_save_scripts</span>.push(unScript)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">      </span><br><span class="line">  save_data(<span class="variable">$cheat_save_scripts</span>, <span class="string">&quot;Data_Cheat/Scripts.rvdata2&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>簡單來說，這部分做的事情是將 <code>Data_Cheat/002_Cheat_All.txt</code> 和 <code>Data_Cheat/002_Cheat_Text_Cheat.txt</code> 的內容串接到遊戲原本的 <code>Data/Scripts.rvdata2</code> 後，變成一個新的 <code>Data_Cheat/Scripts.rvdata2</code>。<br>不得不說，我覺得這個方法蠻高明的，無痛的在遊戲本身的內容上加入自己的新東西。若使用者後來不想用這作弊功能，改為執行 Game.exe 就可以了。</p>
+<h2 id="作弊選單的實作"><a href="#作弊選單的實作" class="headerlink" title="作弊選單的實作"></a>作弊選單的實作</h2><p>總算到理解實作的環節了，雖然一開始的目標是修改人物速度，但我同樣很好奇他一些功能是怎麼實現的，所以多訂了幾個目標</p>
+<ol>
+<li>如何把作弊選單載入到遊戲中</li>
+<li>看看人物速度怎麼改的</li>
+</ol>
+<h3 id="將選單載入到遊戲中"><a href="#將選單載入到遊戲中" class="headerlink" title="將選單載入到遊戲中"></a>將選單載入到遊戲中</h3><p>搜尋叫出作弊選單的按鍵 <code>F8</code>，可知當按鍵按下時，會交由 <code>Scene_Map</code> 處理，大概是做了這幾件事，</p>
+<ol>
+<li>初始化作弊選單的視窗 (e.g. <code>Scene_Cheat</code>, <code>Window_CheatCommand</code>)</li>
+<li>設定每個選項個別的 handle，當選擇對應的選項時，其 handle 會創建新的子選單並套用設定。 (e.g. <code>Scene_Cheat</code>, <code>set_handler</code>)</li>
+</ol>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-33.png" class="" width="450">
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-34.png" class="" width="450">
+
+<p>不過，當去比對遊戲本體的腳本內容時，會發現 <code>Scene_Map</code> 是本來就有的 class。<br>如果跟我一樣只有寫過 c++、python 之類的朋友，應該會黑人問號，重複定義 class 會噴錯吧？其實這個操作在 ruby 叫做 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3822471/are-you-allowed-to-redefine-a-class-in-ruby-or-is-this-just-in-irb">open class</a>，可以往已經定義好的 class 中打 patch，太淫蕩了…。<br>儘管身為 c++ 開發者的我無法適應這個特性，甚至還想忘記我看了什麼，但也確實是有了這個特性，這個作弊腳本才能在保留遊戲原先邏輯的前提下加東西，牛逼。</p>
+<h3 id="調整人物速度的選項"><a href="#調整人物速度的選項" class="headerlink" title="調整人物速度的選項"></a>調整人物速度的選項</h3><p>翻了一遍跟 speed 選單有關的實作，基本上流程是這樣的</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-35.png" class="" width="450">
+<ol>
+<li>開啟 “Move Speed” 選單，呼叫 edit_move command (此 command ext &#x3D; “move”)。</li>
+<li>edit_move 呼叫 Window_ChaatMove 處理設定速度 (4~9) 的選項，在這邊選項是 4。</li>
+<li>Window_CheatMove 呼叫 cheat_change(“move”, 4)，設定速度值。</li>
+<li>cheat_change 跟據傳入的 ext 來設定對應的屬性值，在這邊設定 <code>@move = 4</code>。</li>
+</ol>
+<p>大致了解選單的邏輯後，開始追 move 值的改動會如何套用到遊戲人物上，這部分蠻單純的，就是覆寫原本的 <code>real_move_speed</code>，改為使用作弊選單設定的 move 值。(下圖左為作弊選單，圖右為原本邏輯)</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-36.png" class="" width="450">
+<p>(原本的<code>real_move_speed</code>跟我在使用 CE 逆向時的猜測之一蠻接近的，還真的是人物速度 +1，再細追一下會發現這個值主要影響每一幀更新時人物的移動距離。)</p>
+<h2 id="回到-CE"><a href="#回到-CE" class="headerlink" title="回到 CE"></a>回到 CE</h2><p>目前已經有兩個方法可以達成這件事了</p>
+<ol>
+<li>CE</li>
+<li>Cheat Menu</li>
+</ol>
+<p>跟一開始不一樣的是，我們手上有 source 了，在使用 CE 逆向的階段時，有很多不確定的 struct member，現在可以無恥的跟 src 比對， 一個一個找出這些值到底是啥。<br>直接來比對 <code>Game_CharacterBase</code> 和 CE 看到的 struct 內容。</p>
+<img src="https://files.sakana.tw/blog/Sequel-Blight-Reversing/sequel-blight-37.png" class="" width="450">
+<p>可見數字是以 2x + 1 去存，而 bool 是以 2x 去存。並且把這些值玩一遍之後，我感覺比較實用的有 move speed、through mode (不會撞怪、不受障礙的移動)。</p>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>以上就是逆向這遊戲的過程。<br>通過這篇文，不專業的記錄了用 CE 逆向遊戲的各個階段</p>
+<ol>
+<li>使用 CE 抓出記憶體位置</li>
+<li>使用 CE 反追寫入讀取的程式段</li>
+<li>使用 IDA、x64dbg 等動態、靜態工具輔助分析</li>
+<li>放棄分析，使用通靈，猜到賺到</li>
+</ol>
+<p>以及通過蒐集資訊，從其他角度切入，盡量避開硬剛記憶體的方式</p>
+<ol>
+<li>研究其他人寫好的工具</li>
+<li>熟析對應的遊戲引擎的大致運作方式</li>
+<li>通過 1、2 的資訊，嘗試用較高的層次來分析遊戲</li>
+</ol>
+<h1 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h1><p>一開始只是想說記錄一下，將近一年前逆這個遊戲逆的很痛苦，不停撞牆的過程。</p>
+<p>雖然通過 CE 純逆向的成果並不是很好，但過程我覺得還算有趣，像是變數追到一半邏輯就斷掉了怎麼辦，如何通過 CE 強大的工具找到寫入點、找到變數真正的指標之類的，有不少實際做之前都不會想到的騷操作。</p>
+<p>但逆向的過程要解釋清楚真的比想像中還困難，就我自己的感覺，逆向時會一直有不同支線冒出來，還會不停的做假設，有時候追不同地方的邏輯時，突然就發現接起來了…這種看似毫無邏輯的事也會發生。要用一直線的文章思路記錄下來真的是難倒我，寫到一半就感覺自己開錯坑了。</p>
+<p>不過寫文章的過程中也意外獲得了一些收穫，因為這篇是一邊寫一邊逆的，其實會花更多的時間審視每一步的目的，比較確定在做什麼，因為想得比較久，也會想到之前分析時沒想到的操作，蠻不錯的。</p>
+<p>想起以前想學外掛，逛外掛論壇時看到有些人問大神，人物無敵的地址到底怎麼找到的，大神說這是一個感覺，很難解釋，然後看起來也沒打算解釋XD。我心裡就在想 “靠北阿，到底是什麼感覺，天生的感覺嗎…我真的感覺不到任何的感覺耶…”。<br>寫這篇文章時突然想起這事，如果有跟我一樣找不到感覺的朋友，希望看完這篇後能找到一點感覺。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reverse-Engineering/">Reverse Engineering</a></div><div class="post-share"><div class="social-share" data-image="https://files.sakana.tw/blog/Sequel-Blight-Reversing/Title.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img class="cover" src="/images/star_flower_clip.jpg" onerror="onerror=null;src='/images/crying_chopper.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">DEVCORE-Wargame-2023</div></div><div class="info-2"><div class="info-item-1">first-flag(有點忘記，應該是叫這名子沒錯)隨便輸入一串 user，登入後會要你輸入 flag，超過 5 分會給你這一題的 flag   (搞笑的是我一開始以為 flag 是 FLAG&#123;this_is_the_first_flag&#125;，拿去輸入想說怎麼是錯的) 看 session，感覺有點東西，於是 base64 decode，嗯？感覺 exp 可以用。 123456789100...</div></div></div></a><a class="pagination-related" href="/2023/12/03/%E4%BD%BF%E7%94%A8-nginx-certbot-%E5%BF%AB%E9%80%9F%E5%B0%87-ssl-%E6%95%B4%E5%90%88%E9%80%B2%E8%87%AA%E6%9E%B6%E7%9A%84-http-%E7%B6%B2%E7%AB%99-with-docker-composer/" title="使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)"><img class="cover" src="https://files.sakana.tw/blog/https-with-nginx-and-certbot/Title.png" onerror="onerror=null;src='/images/crying_chopper.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)</div></div><div class="info-2"><div class="info-item-1">近期想搞一個用來管理圖片的服務，找到了 immich 這款 self hosted 的圖片管理工具，在 localhost 試用了一小段時間，感覺很不錯，不管是 UI 還是搜尋功能都沒得挑剔，唯一可惜的是搜尋功能沒有整合 OCR。 直到當我想把他放上雲端，方便從外網存取時，才發現一個大問題，這個通過 docker compose 架起來的 server，只支援 http，雪特，這樣我不敢登入 server 的 web 介面耶…，於是開始了這工具的 https 升級之旅。 雖然這是我設定 immich 的記錄，但大部分的 http server 應該都管用。 事前評估首先做個整理，方便收斂出實際的做法  手上的資源  從 gandi 購買，目前由 cloudflare DNS 託管的 domain - sakana.tw。   取得憑證的幾個方法  跟 gandi 買萬用憑證，人工塞憑證到 server 上：太貴了 從 cloudflare 抓萬用憑證，人工塞憑證到 server 上：可行 從 lets encrypt 申請憑證，網路上有一堆自動化更新憑證的教學資源：可行   將...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div><div class="comment-switch"><span class="first-comment">Giscus</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E6%A8%99%E8%AA%AA%E6%98%8E"><span class="toc-number">2.</span> <span class="toc-text">目標說明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequel-Blight"><span class="toc-number">2.1.</span> <span class="toc-text">Sequel Blight</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E6%A8%99"><span class="toc-number">2.2.</span> <span class="toc-text">目標</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%A7%92%E8%89%B2%E6%95%B8%E5%80%BC"><span class="toc-number">3.</span> <span class="toc-text">修改角色數值</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E5%BE%97%E8%A7%92%E8%89%B2%E6%95%B8%E5%80%BC%E7%9A%84-address"><span class="toc-number">3.1.</span> <span class="toc-text">取得角色數值的 address</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Poninter-Scan-%E6%89%BE%E5%87%BA%E6%8C%87%E5%90%91-address-%E7%9A%84-pointer"><span class="toc-number">3.2.</span> <span class="toc-text">使用 Poninter Scan 找出指向 address 的 pointer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-dissect-struct-%E8%A7%80%E5%AF%9F%E5%91%A8%E9%81%AD%E8%AE%8A%E6%95%B8"><span class="toc-number">3.3.</span> <span class="toc-text">使用 dissect struct 觀察周遭變數</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%A7%BB%E5%8B%95%E9%80%9F%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">修改移動速度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%8E%E6%BF%BE%E5%87%BA%E5%8F%AF%E8%83%BD%E4%BB%A3%E8%A1%A8%E4%BA%BA%E7%89%A9%E9%80%9F%E5%BA%A6%E7%9A%84-address"><span class="toc-number">4.1.</span> <span class="toc-text">過濾出可能代表人物速度的 address</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%BD%E6%9F%A5%E5%AD%98%E5%8F%96%E9%80%99%E4%BA%9B-address-%E7%9A%84%E4%BB%A3%E7%A2%BC%E6%AE%B5"><span class="toc-number">4.2.</span> <span class="toc-text">追查存取這些 address 的代碼段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%BD%E6%9F%A5-caller-%E5%91%BC%E5%8F%AB%E9%80%B2%E5%85%A5%E9%80%99%E4%BB%A3%E7%A2%BC%E6%AE%B5%E6%99%82%E5%82%B3%E5%85%A5%E7%9A%84%E5%8F%83%E6%95%B8"><span class="toc-number">4.3.</span> <span class="toc-text">追查 caller 呼叫進入這代碼段時傳入的參數</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%9E%E4%BA%BA%E7%89%A9-x-%E8%BB%B8-address-%E5%88%87%E5%85%A5"><span class="toc-number">4.4.</span> <span class="toc-text">從人物 x 軸 address 切入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E6%89%BE%E5%87%BA%E5%90%84-register-%E7%9A%84%E5%85%A7%E5%AE%B9%E5%92%8C%E7%9B%B8%E9%97%9C%E7%9A%84%E4%BB%A3%E7%A2%BC%E6%AE%B5"><span class="toc-number">4.5.</span> <span class="toc-text">反向找出各 register 的內容和相關的代碼段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9C%E6%85%8B%E9%80%86%E5%90%91"><span class="toc-number">4.6.</span> <span class="toc-text">靜態逆向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%9E%E4%BA%BA%E7%89%A9-x-%E8%BB%B8-address-%E5%88%87%E5%85%A5-again"><span class="toc-number">4.7.</span> <span class="toc-text">從人物 x 軸 address 切入 (again)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%A7%BB%E5%8B%95%E9%80%9F%E5%BA%A6-cont%E2%80%99d"><span class="toc-number">5.</span> <span class="toc-text">修改移動速度 (cont’d)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RMVA-Cheat-Menu"><span class="toc-number">5.1.</span> <span class="toc-text">RMVA Cheat Menu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cheater-%E4%B8%AD%E5%90%84%E6%AA%94%E6%A1%88%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">5.2.</span> <span class="toc-text">Cheater 中各檔案的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Game-cheat-exe%E3%80%81Game-cheat-ini"><span class="toc-number">5.2.1.</span> <span class="toc-text">Game_cheat.exe、Game_cheat.ini</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RGSS301-dll"><span class="toc-number">5.2.2.</span> <span class="toc-text">RGSS301.dll</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#002-Cheat-All-txt%E3%80%81002-Cheat-Text-Cheat-txt%E3%80%81Scripts-rvdata2"><span class="toc-number">5.2.3.</span> <span class="toc-text">002_Cheat_All.txt、002_Cheat_Text_Cheat.txt、Scripts.rvdata2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E9%BB%9E%E6%95%B4%E7%90%86"><span class="toc-number">5.2.4.</span> <span class="toc-text">重點整理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%86%E8%A7%A3%E5%AE%89%E8%A3%9D%E6%A9%9F%E5%88%B6%E5%8F%8A%E5%85%A7%E5%AE%B9"><span class="toc-number">5.3.</span> <span class="toc-text">拆解安裝機制及內容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E5%BC%8A%E9%81%B8%E5%96%AE%E7%9A%84%E5%AF%A6%E4%BD%9C"><span class="toc-number">5.4.</span> <span class="toc-text">作弊選單的實作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%87%E9%81%B8%E5%96%AE%E8%BC%89%E5%85%A5%E5%88%B0%E9%81%8A%E6%88%B2%E4%B8%AD"><span class="toc-number">5.4.1.</span> <span class="toc-text">將選單載入到遊戲中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%BF%E6%95%B4%E4%BA%BA%E7%89%A9%E9%80%9F%E5%BA%A6%E7%9A%84%E9%81%B8%E9%A0%85"><span class="toc-number">5.4.2.</span> <span class="toc-text">調整人物速度的選項</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%88%B0-CE"><span class="toc-number">5.5.</span> <span class="toc-text">回到 CE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">6.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">7.</span> <span class="toc-text">心得</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Fish Yu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-loading":"lazy"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'a45s67/a45s67.github.io',
+      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkyMjczMzA1OTY=',
+      'data-category-id': 'DIC_kwDODYzKJM4CR_uz',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const disqusReset = conf => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: conf
+    })
+  }
+
+  const loadDisqus = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyDisqus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    window.disqus_identifier = isShuoshuo ? path : '/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/'
+    window.disqus_url = isShuoshuo ? location.origin + path : 'https://sakana.tw/2023/09/16/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%20RPG%20%E9%81%8A%E6%88%B2%20-%20Sequel%20Blight%20%E8%A7%92%E8%89%B2%E7%9A%84%E5%90%84%E9%A0%85%E6%95%B8%E5%80%BC/'
+
+    const disqus_config = function () {
+      this.page.url = disqus_url
+      this.page.identifier = disqus_identifier
+      this.page.title = '如何修改 RPG 遊戲 - Sequel Blight 角色的各項數值'
+    }
+
+    if (window.DISQUS) disqusReset(disqus_config)
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://a45s67-blog.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+
+    btf.addGlobalFn('themeChange', () => disqusReset(disqus_config), 'disqus')
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=a45s67-blog&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Giscus' === 'Disqus'
+      ? window.shuoshuoComment = { loadComment: loadDisqus }
+      : window.loadOtherComment = loadDisqus
+    return
+  }
+
+  if ('Giscus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

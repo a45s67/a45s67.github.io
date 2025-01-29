@@ -1,0 +1,770 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法 | FlyFish's Blog</title><meta name="author" content="Fish Yu"><meta name="copyright" content="Fish Yu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我的操作環境及習慣我上班工作時是 windows + wsl，下班回家則是 mac OS 或是 windows，日常工作都是能用鍵盤就用鍵盤完成，高度相依於鍵盤快捷鍵。 以下簡介我如何在使用同樣鍵盤同樣 layout 的前提下，在兩種系統間保持同樣的操作習慣，而不會由於快捷鍵不一樣等問題導致精神分裂，並且分享一些 mac 下的我覺得頂級的小工具 如何從 windows 過渡到 mac 並維持相近的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法">
+<meta property="og:url" content="https://sakana.tw/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="FlyFish&#39;s Blog">
+<meta property="og:description" content="我的操作環境及習慣我上班工作時是 windows + wsl，下班回家則是 mac OS 或是 windows，日常工作都是能用鍵盤就用鍵盤完成，高度相依於鍵盤快捷鍵。 以下簡介我如何在使用同樣鍵盤同樣 layout 的前提下，在兩種系統間保持同樣的操作習慣，而不會由於快捷鍵不一樣等問題導致精神分裂，並且分享一些 mac 下的我覺得頂級的小工具 如何從 windows 過渡到 mac 並維持相近的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sakana.tw/images/star_flower_clip.jpg">
+<meta property="article:published_time" content="2025-01-29T16:00:02.000Z">
+<meta property="article:modified_time" content="2025-01-29T17:01:24.377Z">
+<meta property="article:author" content="Fish Yu">
+<meta property="article:tag" content="workflow,mac,windows">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sakana.tw/images/star_flower_clip.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法",
+  "url": "https://sakana.tw/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/",
+  "image": "https://sakana.tw/images/star_flower_clip.jpg",
+  "datePublished": "2025-01-29T16:00:02.000Z",
+  "dateModified": "2025-01-29T17:01:24.377Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Fish Yu",
+      "url": "https://sakana.tw/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/dolphin.svg"><link rel="canonical" href="https://sakana.tw/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg" style="background-image: url(url(/images/default_cover.png));"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://files.sakana.tw/blog/Theme/avatar-arona.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><span> Posts</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/star_flower_clip.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">FlyFish's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><span> Posts</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-01-29T16:00:02.000Z" title="Created 2025-01-30 00:00:02">2025-01-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-01-29T17:01:24.377Z" title="Updated 2025-01-30 01:01:24">2025-01-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>15mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="我的操作環境及習慣"><a href="#我的操作環境及習慣" class="headerlink" title="我的操作環境及習慣"></a>我的操作環境及習慣</h2><p>我上班工作時是 windows + wsl，下班回家則是 mac OS 或是 windows，日常工作都是能用鍵盤就用鍵盤完成，高度相依於鍵盤快捷鍵。</p>
+<p>以下簡介我如何在使用同樣鍵盤同樣 layout 的前提下，在兩種系統間保持同樣的操作習慣，而不會由於快捷鍵不一樣等問題導致精神分裂，並且分享一些 mac 下的我覺得頂級的小工具</p>
+<h2 id="如何從-windows-過渡到-mac-並維持相近的操作習慣"><a href="#如何從-windows-過渡到-mac-並維持相近的操作習慣" class="headerlink" title="如何從 windows 過渡到 mac 並維持相近的操作習慣"></a>如何從 windows 過渡到 mac 並維持相近的操作習慣</h2><p>一般來說，日常基本使用行為包括瀏覽器搜尋資料(chrome)、用筆記軟體記筆記(e.g., obsidian, heptabase)、開其他有的沒的小工具(e.g., todolist, amazon music)<br>這些行為的操作方式與以下關鍵元素息息相關</p>
+<ul>
+<li>keybinding、視窗間的切換方式</li>
+<li>輸入法<br>只要這些元素差異不大，或是 mac 更直覺，就不會水土不服。不幸的是有些差異 (尤其是 keybinding) 反直覺到無法忽視，以下將說明我如何以個人舒適的角度調整這些元素的。</li>
+</ul>
+<h3 id="調整-keybinding"><a href="#調整-keybinding" class="headerlink" title="調整 keybinding"></a>調整 keybinding</h3><h4 id="兩個系統的-keybinding-有微妙的差異"><a href="#兩個系統的-keybinding-有微妙的差異" class="headerlink" title="兩個系統的 keybinding 有微妙的差異"></a>兩個系統的 keybinding 有微妙的差異</h4><p>大家若用過這兩個系統，應該知道在  mac os 的 command 就像是 windows 的 ctrl key，相當單純。<br>應該是這樣才對…</p>
+<p>實際上是很像，痛苦的就是真的有些地方不像，跟 command, ctrl 鍵相關的 keybinding 我理不清一個邏輯，讓我狂搞混按錯，我花一整天的時間 tune 這邊的操作習慣</p>
+<p>以下是我最常用的幾個操作，windows 跟 mac 的比較</p>
+<ul>
+<li>視窗<ul>
+<li>切換視窗： alt tab -&gt; command(win) tab<ul>
+<li>不過這按鍵 mac os 切換的不是視窗，是切換 app，要切換視窗更準確的對應按鍵是 ctrl f4…</li>
+</ul>
+</li>
+<li>fuzzy search 切換視窗 (switcheroo) alt space -&gt; command(win) space (spotlight)</li>
+<li>關閉視窗：ctrl-w -&gt; command(win)-w &#x2F; command(win)-q (這是完全關閉 app)</li>
+<li>快速開啟：分成兩個部分<ul>
+<li>fuzzy search 應用程式(開始功能表) win -&gt; command(win) space (spotlight)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文字操作<ul>
+<li>複製貼上：ctrl c&#x2F;v -&gt; command(win) c&#x2F;v</li>
+<li>刪除 word：ctrl backspace -&gt; alt backspace</li>
+<li>切換輸入法：win(command) space -&gt; command space</li>
+</ul>
+</li>
+<li>in chrome<ul>
+<li>切分頁：ctrl tab -&gt; ctrl tab</li>
+<li>關閉分頁：ctrl w -&gt; command(win) w</li>
+<li>(這是最吐血的，應該不少人按錯過…切分頁按成 command tab…為什麼關分頁是用 cmd，切換分頁卻是 ctrl ?</li>
+</ul>
+</li>
+<li>in terminal(e.g., iterm2, wezterm)<ul>
+<li>ctrl 相關操作 -&gt; 一樣 map 對應 ctrl</li>
+</ul>
+</li>
+<li>切換虛擬桌面：win(command) 左右方向鍵 -&gt; ctrl 左右方向鍵</li>
+</ul>
+<p>其實問題最大的就是 chrome 而已，對我來說真的反直覺。總之知道哪些不一樣了，可以開始調整了。</p>
+<h4 id="將同類型的按鍵統一"><a href="#將同類型的按鍵統一" class="headerlink" title="將同類型的按鍵統一"></a>將同類型的按鍵統一</h4><p>可以發現</p>
+<ol>
+<li>mac command 基本上跟 windows ctrl 差不多</li>
+<li>mac ctrl 跟 windows win 差不多</li>
+<li>mac alt(option) 跟 windows alt 完全他媽不一樣</li>
+</ol>
+<p>第一步：對調 cmd-ctrl</p>
+<ul>
+<li>進 settings -&gt; keyboard shortcut，將 command ctrl 對調 (或是使用 karabiner 也可以)<br>第二步：spotlight 改成 alt space，輸入法切換改成 ctrl space<br>第三步：調整視窗切換 (cmd-tab) 及瀏覽器 tab 切換 (ctrl-tab) 的 mapping</li>
+</ul>
+<p>第一、二步可從 settings 調整<br>第三步</p>
+<ul>
+<li>alt tab 加入 alttab 來做視窗切換</li>
+<li>cmd-tab 是 system wide 的 general shortcut，無法透過設定拿掉，需要使用 karabiner 調整<ul>
+<li>將 cmd-tab 映射到 ctrl-map，從此再也不存在 cmd-map<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;description&quot;: &quot;Change command-tab to control-tab&quot;,</span><br><span class="line">    &quot;manipulators&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;from&quot;: &#123;</span><br><span class="line">                &quot;key_code&quot;: &quot;tab&quot;,</span><br><span class="line">                &quot;modifiers&quot;: &#123;</span><br><span class="line">                    &quot;mandatory&quot;: [&quot;command&quot;],</span><br><span class="line">                    &quot;optional&quot;: [&quot;any&quot;]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;to&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;key_code&quot;: &quot;tab&quot;,</span><br><span class="line">                    &quot;modifiers&quot;: &quot;control&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            &quot;type&quot;: &quot;basic&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>以下是調整後的 mapping 表，還有一些小缺點，在工具介紹的章節會再微調</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>windows</th>
+<th>mac (微調後)</th>
+<th>mac (微調前)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>視窗</td>
+<td>切換視窗 (一般)</td>
+<td>alt-tab</td>
+<td>alt-tab (alttab)</td>
+<td>cmd-tab</td>
+</tr>
+<tr>
+<td></td>
+<td>切換視窗 (fuzzy search)</td>
+<td>alt-space (switcheroo)</td>
+<td>-</td>
+<td>cmd-space (spotlight)</td>
+</tr>
+<tr>
+<td></td>
+<td>關閉視窗、分頁</td>
+<td>ctrl-w</td>
+<td>ctrl-w&#x2F;q</td>
+<td>cmd-w &#x2F; cmd-q</td>
+</tr>
+<tr>
+<td></td>
+<td>開啟應用程式 (fuzzy search)</td>
+<td>win</td>
+<td>-</td>
+<td>cmd-space (spotlight)</td>
+</tr>
+<tr>
+<td>文字操作</td>
+<td>複製貼上</td>
+<td>ctrl-c&#x2F;v</td>
+<td>ctrl-c&#x2F;v</td>
+<td>cmd-c&#x2F;v</td>
+</tr>
+<tr>
+<td></td>
+<td>刪除 word</td>
+<td>alt-backspace</td>
+<td>-</td>
+<td>alt-backspace</td>
+</tr>
+<tr>
+<td></td>
+<td>切換輸入法</td>
+<td>win-space</td>
+<td>cmd-space</td>
+<td>cmd-space</td>
+</tr>
+<tr>
+<td>chrome</td>
+<td>切換分頁</td>
+<td>ctrl-tab</td>
+<td>ctrl-tab</td>
+<td>ctrl-tab</td>
+</tr>
+<tr>
+<td></td>
+<td>關閉分頁</td>
+<td>ctrl-w</td>
+<td>ctrl-w</td>
+<td>cmd-w</td>
+</tr>
+<tr>
+<td>terminal</td>
+<td>任何 ctrl 相關操作</td>
+<td>ctrl-?</td>
+<td>cmd-? (x)</td>
+<td>ctrl-?</td>
+</tr>
+<tr>
+<td>視窗管理</td>
+<td>切換 workspace</td>
+<td>win-左右</td>
+<td>cmd-左右</td>
+<td>ctrl-左右</td>
+</tr>
+</tbody></table>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://alt-tab-macos.netlify.app/">AltTab - Windows alt-tab on macOS</a></li>
+<li>如何 disable cmd-tab<ul>
+<li><a target="_blank" rel="noopener" href="https://superuser.com/questions/808078/change-command-shift-tab-on-osx">macos - Change Command-Shift-Tab on OSX - Super User</a><ul>
+<li><a target="_blank" rel="noopener" href="https://karabiner-elements.pqrs.org/">Karabiner-Elements</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://superuser.com/questions/193922/is-there-any-program-or-way-to-make-mac-os-xs-tab-behave-like-windows-alt-ta">macos - Is there any program or way to make Mac OS X’s ⌘-Tab behave like Windows’ Alt-Tab? - Super User</a></li>
+<li><a target="_blank" rel="noopener" href="https://apple.stackexchange.com/questions/401942/override-the-commandtab-shortcut-in-macos-catalina-when-using-chrome">keyboard - Override the command+tab shortcut in macOS Catalina when using Chrome - Ask Different</a><ul>
+<li><code>According to Apple: &quot;[...] you cannot define keyboard shortcuts for general purpose tasks such as opening an app **or switching between apps**.&quot;</code></li>
+<li><a target="_blank" rel="noopener" href="https://support.apple.com/en-eg/guide/mac-help/mchlp2262/mac">Use macOS keyboard shortcuts - Apple Support (EG)</a></li>
+</ul>
+</li>
+<li>使用 karabiner-elements 把 command tab 給取代成 ctrl tab，實測可行</li>
+</ul>
+</li>
+</ul>
+<h3 id="輸入法"><a href="#輸入法" class="headerlink" title="輸入法"></a>輸入法</h3><p>[[Mac OS 輸入法]]</p>
+<p>個人覺得原生的中文輸入法還不差，屌打微軟，可惜的是按着 shift 輸入符號時，都是全形，可以是半形就更好了。<br>且我的問題是沒有caps lock，因此切換要按ctrl space，但 ctrl-space 與 IDE 中自動補全的 shortcut 衝突，只好爬文找其他輸入法方案</p>
+<ul>
+<li>小麥、rime、Yahoo<br>由於近幾年來許多人都使用 rime，影片教學多且許多開源字典，實際使用手感也不錯，且支援 shift 切換中英，就決定用這個了。</li>
+</ul>
+<h4 id="拼音、注音？"><a href="#拼音、注音？" class="headerlink" title="拼音、注音？"></a>拼音、注音？</h4><blockquote>
+<p>Rime 自帶的輸入法清單：<a target="_blank" rel="noopener" href="https://github.com/rime/home/wiki/UserGuide">UserGuide · rime&#x2F;home Wiki</a></p>
+</blockquote>
+<p>在研究 rime 設定的過程中，發現了許多輸入方案可以使用，機會難得就順便研究，因爲我被微軟注音的爛選字搞得很痛苦，決定趁這機會試試看把這卡住的點給打通。<br>拼音</p>
+<ul>
+<li>分全拼跟雙拼<ul>
+<li>雙拼要背按鍵，雖然它概念跟注音很接近，但學習成本有點高，略過。</li>
+</ul>
+</li>
+<li>最有名的霧凇拼音跟預設的拼音<ul>
+<li>霧凇雖然有內建整合了不同詞庫還能不切換的拼英文單字，但實際用起來對我來說這些額外的東西其實不常使用，有點雞肋</li>
+<li>可能預設的拼音就夠了<br>注音 (bopomofo)</li>
+</ul>
+</li>
+<li>這個注音，是真的 dope，是像手機那樣子，打聲母就對應出詞組，個人感覺這樣子的打字體驗順暢了應該有兩倍左右…</li>
+<li>我用過兩套注音，rime 預設的和洋蔥拼音，個人認為洋蔥拼音選字比較準 (比較適合台灣人)，rime 預設注音有時候會找不到字，但換一個奇怪的念法卻可以找到那個字(暫時沒想到例子)，感覺是因為詞庫使用中國拼音。<br>其他</li>
+<li>無蝦米跟倉頡，參考大部分使用者的心得，應該是最快的輸入法，但後來想想還是放棄，我連雙拼都不敢碰了，就別想拆部首搞聯想這一套了</li>
+</ul>
+<p>所以在 rime 這個輸入法核心的基礎上，不論使用拼音或注音的方案，我認爲熟練之後速度不會差太多，但是拼音因爲沒有聲調，可能會花更多時間在選詞上面。</p>
+<h4 id="Rime-安裝及-config-設定"><a href="#Rime-安裝及-config-設定" class="headerlink" title="Rime 安裝及 config 設定"></a>Rime 安裝及 config 設定</h4><p>Rime 安裝</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://rime.im/download/">下載及安裝 | RIME | 中州韻輸入法引擎</a></li>
+<li>我習慣用 homebrew: <code>brew install --cask squirrel</code></li>
+</ul>
+<p>安裝洋蔥拼音</p>
+<ul>
+<li>step1. 下載後 python 執行 <code>python3 sort_rime_file.py</code>，產生 電腦RIME方案_20250123 這檔名資料夾<ul>
+<li>下載包 <a target="_blank" rel="noopener" href="https://github.com/oniondelta/Onion_Rime_Files/releases">Releases · oniondelta&#x2F;Onion_Rime_Files</a></li>
+</ul>
+</li>
+<li>step2. 進入”電腦RIME方案_XXXXXX&#x2F;注音洋蔥純注音版”資料夾，把裡面檔案全部丟到 <code>~/Library/Rime/</code></li>
+</ul>
+<p>設定洋蔥拼音</p>
+<ul>
+<li>複製這邊的設定 <a target="_blank" rel="noopener" href="https://github.com/a45s67/dotfiles/blob/main/private_Library/Rime/bopomo_onion.schema.yaml" title="bopomo_onion.schema.yaml">bopomo_onion.schema.yaml</a>、<a target="_blank" rel="noopener" href="https://github.com/a45s67/dotfiles/blob/main/private_Library/Rime/bopomo_onion_symbols.yaml" title="bopomo_onion_symbols.yaml">bopomo_onion_symbols.yaml</a> 貼上取代 step2 複製的其中這兩個檔案的內容</li>
+<li>相關快捷鍵：<ul>
+<li>F4 選方案和全形半形之類的</li>
+<li>shift 中英切換</li>
+<li>方括號<code>[,]</code>，用以選字時上下移動</li>
+<li>等號減號 <code>-,=</code>，用以切換上下頁</li>
+</ul>
+</li>
+<li>(這是我的個人設定，我覺得比較好用，有興趣折騰的朋友可以用預設的設定試試看…)</li>
+</ul>
+<h4 id="其它小知識"><a href="#其它小知識" class="headerlink" title="其它小知識"></a>其它小知識</h4><p>安裝 rime 後如何 customize</p>
+<ul>
+<li>(這邊參照 rime ice 的教學</li>
+<li>打 patch: squirrel.custom.yaml、default.custom.yaml<ul>
+<li><a target="_blank" rel="noopener" href="https://dvel.me/posts/rime-ice/#%E5%87%A0%E4%B8%AA%E6%89%93%E8%A1%A5%E4%B8%81%E7%9A%84%E7%A4%BA%E4%BE%8B">Rime 配置：雾凇拼音 - Dvel’s Blog#打補丁的示例</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rime/home/wiki/CustomizationGuide#rime-%E5%AE%9A%E8%A3%BD%E6%8C%87%E5%8D%97">CustomizationGuide · rime&#x2F;home Wiki</a></li>
+</ul>
+</li>
+<li>遵循這個慣例：squirrel.custom.yaml 只取代 squirrel.yaml 的設定，default.custom.yaml 一樣，不然兩邊容易打架，發生明明有設定卻怎麼好像沒套用到的問題。</li>
+</ul>
+<p>輸入法字體</p>
+<ul>
+<li>霞鶩文楷<ul>
+<li>繁體版 <a target="_blank" rel="noopener" href="https://github.com/lxgw/LxgwWenkaiTC">lxgw&#x2F;LxgwWenkaiTC: The Traditional Chinese Edition of LXGW WenKai.</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lxgw/LxgwWenKai">lxgw&#x2F;LxgwWenKai: An open-source Chinese font derived from Fontworks’ Klee One. 一款开源中文字体，基于 FONTWORKS 出品字体 Klee One 衍生。</a></li>
+</ul>
+</li>
+</ul>
+<p>vim mode</p>
+<ul>
+<li>參考別人的設定時，通常會看到 vim_mode: true 這個設定，這是 no document 的設定，來自<a target="_blank" rel="noopener" href="https://github.com/rime/squirrel/issues/124">[提案] app_options 参数设定追加 esc 自动切换 ascii_mode 选项 · Issue #124 · rime&#x2F;squirrel</a>。</li>
+</ul>
+<p>shortcuts</p>
+<ul>
+<li>設置 vim_mode，esc 鍵回到英文模式</li>
+<li>左 shift 會 commit 當前選詞並切換成英文</li>
+<li>右 shift 會進入 inline ascii 將當前輸入內容切換爲英文</li>
+<li>左右方括號 （［）進行選字</li>
+</ul>
+<h4 id="Reference-1"><a href="#Reference-1" class="headerlink" title="Reference"></a>Reference</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.kocpc.com.tw/archives/539100">Mac 電腦三方中文輸入法好選擇：小麥注音輸入法</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ptt.cc/bbs/MAC/M.1689557088.A.300.html">[軟體] 關於嘸蝦米輸入法設定 - 看板 MAC - 批踢踢實業坊</a></li>
+<li><a target="_blank" rel="noopener" href="https://rime.im/blog/2016/04/14/qna-in-mtvu/">山景答問 | RIME | 中州韻輸入法引擎</a><blockquote>
+<p>——「RIME」這個名字，還有「中州韻」「小狼毫」和「鼠鬚管」這些有趣的稱呼都是怎麼想出來的呢？方便的話可否講講這裏面的故事？<br>——不起個好名，寫碼興致索然。 #Quote </p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://byvoid.com/zht/blog/recommend-rime/">推薦一個神級輸入法——Rime</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ptt.cc/bbs/MAC/M.1683219177.A.4B1.html">[求救] 注音輸入下臨時切換英文輸入不要變全形 - 看板 MAC - 批踢踢實業坊</a></li>
+<li>建議是直接使用 capslock<ul>
+<li>結論: 先使用 cmd space 試試看吧</li>
+</ul>
+</li>
+</ul>
+<h2 id="優化工作流及推薦軟體"><a href="#優化工作流及推薦軟體" class="headerlink" title="優化工作流及推薦軟體"></a>優化工作流及推薦軟體</h2><h3 id="Window-Management：-yabai-skhd"><a href="#Window-Management：-yabai-skhd" class="headerlink" title="Window Management： yabai+skhd"></a>Window Management： yabai+skhd</h3><h4 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h4><p>參考 yabai 文件</p>
+<ul>
+<li>安裝文件<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection">Disabling System Integrity Protection · koekeishiya&#x2F;yabai Wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)">Installing yabai (latest release) · koekeishiya&#x2F;yabai Wiki</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="如何設定"><a href="#如何設定" class="headerlink" title="如何設定"></a>如何設定</h4><ol>
+<li>yabai 對 workspace 的操作優化我覺得蠻不錯的，爲了使用這類功能，需要調整一些 root 等級的設定<ul>
+<li>SIP部分設定要關掉</li>
+<li>要將 yabai 加入 sudoers.d 中</li>
+</ul>
+</li>
+<li>爲保持 OS 的界面乾淨，進入 setting 將 menu bar 及 dock 都設定爲自動隱藏</li>
+<li>附上我的 skhd, yabai 設定<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/a45s67/dotfiles/blob/main/dot_skhdrc">.skhdrc</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/a45s67/dotfiles/blob/main/dot_yabairc">.yabairc</a></li>
+</ul>
+</li>
+</ol>
+<h4 id="我的操作習慣"><a href="#我的操作習慣" class="headerlink" title="我的操作習慣"></a>我的操作習慣</h4><p>通常我會常駐 2 個 workspace<br>space 1: terminal, IDE 等開發工具<br>space 2: chrome, obsidian<br>space 3,4,5: 任意軟體</p>
+<p>alt-1,2 or alt-&#x3D; 切換到對應的 space，alt-w 在 space 下不同視窗互相切換，透過這方法我能用相當快的速度切換到對應的視窗。</p>
+<p>我的使用範例: space 1 下 IDE 寫到一半，alt-w 切換到 terminal 推 commit，alt-2 切換到 chrome 找資料，再 alt-w 切換到 obsidian 記筆記，最後 alt-1 alt-w 切換回 IDE 繼續開發。</p>
+<h4 id="除錯"><a href="#除錯" class="headerlink" title="除錯"></a>除錯</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># debug yabai</span><br><span class="line">tail -f /tmp/yabai_$USER.err.log /tmp/yabai_$USER.out.log</span><br><span class="line"></span><br><span class="line"># debug skhd</span><br><span class="line"># 套路: 用 echo 大法看執行 shortcut 時的相關指令的結果</span><br><span class="line">tail -f /tmp/skhd_$USER.err.log /tmp/skhd_$USER.out.log</span><br></pre></td></tr></table></figure>
+
+<h4 id="需要注意的點"><a href="#需要注意的點" class="headerlink" title="需要注意的點"></a>需要注意的點</h4><p>使用 yabai 跳轉 workspace 不會有漸變動畫，不知道是不是爲了更迅速的 focus 而刻意爲之的，不過 mac 切換畫面的效果雖然蠻漂亮的，但整個切換的過程又會因此卡住，沒動畫也是不錯。</p>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li>設定參考<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=fYsCAOfGjxE&t=804s">Blazing Fast Window Management on macOS - YouTube</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/koekeishiya/yabai/blob/master/doc/yabai.asciidoc#space">yabai&#x2F;doc</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="App-Launcher-switcher：Raycast"><a href="#App-Launcher-switcher：Raycast" class="headerlink" title="App Launcher, switcher：Raycast"></a>App Launcher, switcher：Raycast</h3><p>raycast 使用下來的感想</p>
+<ul>
+<li>單就 launcher 上，比 spotlight 好用</li>
+<li>切換 app 視窗的部分<ul>
+<li>比 alttab 順手，因為我在 windows 都用 alt-space (switcheroo) 來移動到目標視窗，且 raycast 針對 search 的推薦排序還做了優化</li>
+<li>不過我後期切換視窗都靠 yabai 了</li>
+</ul>
+</li>
+<li>總之蠻全能的</li>
+</ul>
+<h3 id="Terminal"><a href="#Terminal" class="headerlink" title="Terminal"></a>Terminal</h3><h4 id="近期流行-terminal-的選擇"><a href="#近期流行-terminal-的選擇" class="headerlink" title="近期流行 terminal 的選擇"></a>近期流行 terminal 的選擇</h4><p>原先是直接抓 iterm2 來用，因爲我在 windows 時最常聽到的 terminal 就是 iterm，本來也沒想過會換，不過在做設定的爬文過程中看到了一堆我在 windows 下用過的幾個 terminal 也有不少 macOS 用戶推薦，所以就一併試用看看了。</p>
+<p>我的需求很簡單，terminal 有基本的樣式設定(e.g., 透明化、可設定背景圖片)，並且能夠 remapping key 就好</p>
+<p>總之從 iterm2 -&gt; warp -&gt; alacirtty -&gt; wezterm 試了一遍，最後依照顏值，決定用 wezterm。</p>
+<ul>
+<li>iterm2<ul>
+<li>老牌 terminal，沒什麼好挑剔的</li>
+</ul>
+</li>
+<li>warp<ul>
+<li>要使用還要登入帳號，很怪</li>
+<li>小白能無痛上手，預設就有很不錯的 terminal 界面可以用了，還有一堆 fancy 的輔助功能，只是我用不到</li>
+</ul>
+</li>
+<li>alacirtty<ul>
+<li>也沒啥好挑剔</li>
+</ul>
+</li>
+<li>wezterm<ul>
+<li>也沒啥好挑剔</li>
+<li>他的 glyph 比較好看 (glyph 是指一些特殊符號如 emoji，render 在螢幕上的樣子，不專業說明，有錯鞭小力一點…)</li>
+<li>reddit 上比較多人推薦</li>
+</ul>
+</li>
+</ul>
+<h4 id="Wezterm-及-keybinding-設定參考"><a href="#Wezterm-及-keybinding-設定參考" class="headerlink" title="Wezterm 及 keybinding 設定參考"></a>Wezterm 及 keybinding 設定參考</h4><p>安裝 <a target="_blank" rel="noopener" href="https://wezfurlong.org/wezterm/install/macos.html#installing-on-macos">macOS - Wez’s Terminal Emulator</a></p>
+<ul>
+<li>我習慣使用 homebrew <code>brew install --cask wezterm</code></li>
+</ul>
+<p>設定：主要就是修正 keybinding</p>
+<p>因為在 keybinding 章節中，對調了 cmd, ctrl，會導致 shell, vim 下的 ctrl 相關指令變成要按 cmd，因此也要作對應的處理。<br>實際上在 terminal 視窗工作時，需要調整、保留哪些指令呢，以及會要繞過什麼坑？</p>
+<ul>
+<li>目標 keybinding 大致方向<ul>
+<li>cmd-tab 保留原樣，能夠切換 tab</li>
+<li>cmd-v&#x2F;cmd-l 等等組合會 send ^V ^L 進入 visual mode 或清空命令列這類的功能</li>
+</ul>
+</li>
+<li>大部分 ctrl 的按鍵組合，會先被 OS 攔截，執行 OS 設置好的shortcut，例如<ul>
+<li>ctrl-L 爲 OS 的 show launchpad</li>
+<li>在 wezterm 下，直接按 ctrl-L 會 show launchpad</li>
+</ul>
+</li>
+<li>這挺頭痛的，但 cmd 的按鍵組合，大部分跟 os shortcut 無關，因此我們能將這類按鍵送到 wezterm 後，再交由 wezterm remapping 成實際想解析成的指令。<ul>
+<li>這個還帶來意外的好處，我能夠在 wezterm 透過 remap 讓 cmd 針對 terminal 執行我習慣的 ctrl 快捷鍵操作，同時不影響到原本 OS 與 ctrl 相關的 shortcut 設定</li>
+</ul>
+</li>
+</ul>
+<p>因此在這裡設定 <code>.wezterm.lua</code> 將 cmd+[0123…xyz[]] 等等基本按鍵映射到 ctrl+ [0123…xyz[]]，具體設定參考 <a target="_blank" rel="noopener" href="https://github.com/a45s67/dotfiles/blob/main/dot_wezterm.lua">dotfiles&#x2F;dot_wezterm.lua at main · a45s67&#x2F;dotfiles</a></p>
+<h3 id="Reference-2"><a href="#Reference-2" class="headerlink" title="Reference"></a>Reference</h3><p>Reddit 上的討論</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.reddit.com/r/neovim/comments/16kjpxn/wezterm_or_tmuxalacritty/">Wezterm or Tmux&#x2F;Alacritty : r&#x2F;neovim</a><br>wezterm 設置</li>
+<li>docs<ul>
+<li><a target="_blank" rel="noopener" href="https://wezfurlong.org/wezterm/config/files.html">Configuration - Wez’s Terminal Emulator</a></li>
+<li><a target="_blank" rel="noopener" href="https://wezfurlong.org/wezterm/config/appearance.html">Colors &amp; Appearance - Wez’s Terminal Emulator</a></li>
+</ul>
+</li>
+<li>其他人的設定<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=I3ipo8NxsjY">Configure Wezterm terminal emulator in Lua with me [ASMR Coding] - YouTube</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="最後的-key-mapping"><a href="#最後的-key-mapping" class="headerlink" title="最後的 key mapping"></a>最後的 key mapping</h2><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>windows</th>
+<th>mac (微調後)</th>
+<th>mac (微調前)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>視窗</td>
+<td>切換視窗 (一般)</td>
+<td>alt-tab</td>
+<td>alt-tab (alttab)</td>
+<td>cmd-tab</td>
+</tr>
+<tr>
+<td></td>
+<td>切換視窗 (fuzzy search)</td>
+<td>alt-space (switcheroo)</td>
+<td>alt-space (raycast)</td>
+<td>cmd-space (spotlight)</td>
+</tr>
+<tr>
+<td></td>
+<td>關閉視窗、分頁</td>
+<td>ctrl-w</td>
+<td>ctrl-w&#x2F;q</td>
+<td>cmd-w &#x2F; cmd-q</td>
+</tr>
+<tr>
+<td></td>
+<td>開啟應用程式 (fuzzy search)</td>
+<td>win</td>
+<td>ctrl-space(raycast)</td>
+<td>cmd-space (spotlight)</td>
+</tr>
+<tr>
+<td>文字操作</td>
+<td>複製貼上</td>
+<td>ctrl-c&#x2F;v</td>
+<td>ctrl-c&#x2F;v</td>
+<td>cmd-c&#x2F;v</td>
+</tr>
+<tr>
+<td></td>
+<td>刪除 word</td>
+<td>alt-backspace</td>
+<td>alt-backspace</td>
+<td>alt-backspace</td>
+</tr>
+<tr>
+<td></td>
+<td>切換輸入法</td>
+<td>win-space</td>
+<td>cmd-space</td>
+<td>cmd-space</td>
+</tr>
+<tr>
+<td>chrome</td>
+<td>切換分頁</td>
+<td>ctrl-tab</td>
+<td>ctrl-tab</td>
+<td>ctrl-tab</td>
+</tr>
+<tr>
+<td></td>
+<td>關閉分頁</td>
+<td>ctrl-w</td>
+<td>ctrl-w</td>
+<td>ctrl-w</td>
+</tr>
+<tr>
+<td>terminal</td>
+<td>任何 ctrl 相關操作</td>
+<td>ctrl-?</td>
+<td>ctrl-?</td>
+<td>ctrl-?</td>
+</tr>
+<tr>
+<td>視窗管理</td>
+<td>切換 workspace</td>
+<td>win-左右</td>
+<td>cmd-左右</td>
+<td>ctrl-左右</td>
+</tr>
+</tbody></table>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="螢幕調效"><a href="#螢幕調效" class="headerlink" title="螢幕調效"></a>螢幕調效</h3><p>我是用 M27q 這顆螢幕，在 windows 下顏色不知道爲何比較鮮豔，mac 輸出到螢幕上的色彩明顯比較暗淡。<br>看了一堆影片，總結下來推測是因爲 gamma 值之類的色彩輸出沒有跟螢幕對齊的緣故，那反正我最後是開啓 HDR，色彩就基本上都對了</p>
+<h4 id="Reference-3"><a href="#Reference-3" class="headerlink" title="Reference"></a>Reference</h4><p>獲得和MacBook一樣色彩的真正方法 feat.2023 Mac用荧幕推薦 - YouTube</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uSg5tYe3OAE">https://www.youtube.com/watch?v=uSg5tYe3OAE</a></li>
+</ul>
+<h2 id="心得分享"><a href="#心得分享" class="headerlink" title="心得分享"></a>心得分享</h2><h3 id="進入-macOS-的契機"><a href="#進入-macOS-的契機" class="headerlink" title="進入 macOS 的契機"></a>進入 macOS 的契機</h3><p>從以前就耳聞 mac OS 的流暢及操作性，對這套生態系的印象就是彷彿只要一旦進入，就能提升 3 倍的工作效率，但礙於 mac 那蔑視窮人(?)的價格，一直都沒機會體驗這個操作系統。<br>直到 2024 初注意到 mac mini m2，各個 youtuber 開始發各種測評，評價爲 apple 史上 cp 值最高的設備之一，且效能匹敵甚至勝過同等價位的自組桌機。看到大家吹的這麼牛皮我也被燒到了，於是用學生方案直接衝了一發，也買了一個觸控板。(嘿嘿，卑鄙源之助)</p>
+<h3 id="一年下來簡單的心得以及遇到的坑"><a href="#一年下來簡單的心得以及遇到的坑" class="headerlink" title="一年下來簡單的心得以及遇到的坑"></a>一年下來簡單的心得以及遇到的坑</h3><p>用了快一年了，我相當喜歡在 mac 上作開發及日常使用，我認為 windows 及 mac 在視窗上的工作流有不同的體驗，除了系統介面帶來的差異，使用的軟體工具也有影響，我覺得兩種系統在使用體驗上各有優秀的地方，我在 mac 下最喜歡的大概是介面的簡約感，以及 yabai 切換視窗的絲滑體驗。</p>
+<p>不過有個軟體開發者需要注意的點，M 系列晶片的 mac 是 arm 架構，偶而會遇到 x86 下支援的套件沒有支援 arm 的狀況，我曾經在 mac 上跑一些開源的模型，結果裡面使用的 python 套件沒有 arm 版本的狀況…，除了 hack 一下把套件拿掉，或是在 arm 下跑個 x86 的 docker image (很折騰且速度很慢)，遇到這情況時我基本建議退回在 x86 主機上開發…。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/workflow-mac-windows/">workflow,mac,windows</a></div><div class="post-share"><div class="social-share" data-image="/images/star_flower_clip.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2023/12/03/%E4%BD%BF%E7%94%A8-nginx-certbot-%E5%BF%AB%E9%80%9F%E5%B0%87-ssl-%E6%95%B4%E5%90%88%E9%80%B2%E8%87%AA%E6%9E%B6%E7%9A%84-http-%E7%B6%B2%E7%AB%99-with-docker-composer/" title="使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)"><img class="cover" src="https://files.sakana.tw/blog/https-with-nginx-and-certbot/Title.png" onerror="onerror=null;src='/images/crying_chopper.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">使用 nginx + certbot 快速將 ssl 整合進自架的 http 網站 (with docker composer)</div></div><div class="info-2"><div class="info-item-1">近期想搞一個用來管理圖片的服務，找到了 immich 這款 self hosted 的圖片管理工具，在 localhost 試用了一小段時間，感覺很不錯，不管是 UI 還是搜尋功能都沒得挑剔，唯一可惜的是搜尋功能沒有整合 OCR。 直到當我想把他放上雲端，方便從外網存取時，才發現一個大問題，這個通過 docker compose 架起來的 server，只支援 http，雪特，這樣我不敢登入 server 的 web 介面耶…，於是開始了這工具的 https 升級之旅。 雖然這是我設定 immich 的記錄，但大部分的 http server 應該都管用。 事前評估首先做個整理，方便收斂出實際的做法  手上的資源  從 gandi 購買，目前由 cloudflare DNS 託管的 domain - sakana.tw。   取得憑證的幾個方法  跟 gandi 買萬用憑證，人工塞憑證到 server 上：太貴了 從 cloudflare 抓萬用憑證，人工塞憑證到 server 上：可行 從 lets encrypt 申請憑證，網路上有一堆自動化更新憑證的教學資源：可行   將...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div><div class="comment-switch"><span class="first-comment">Giscus</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%92%B0%E5%A2%83%E5%8F%8A%E7%BF%92%E6%85%A3"><span class="toc-number">1.</span> <span class="toc-text">我的操作環境及習慣</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BE%9E-windows-%E9%81%8E%E6%B8%A1%E5%88%B0-mac-%E4%B8%A6%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3"><span class="toc-number">2.</span> <span class="toc-text">如何從 windows 過渡到 mac 並維持相近的操作習慣</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%BF%E6%95%B4-keybinding"><span class="toc-number">2.1.</span> <span class="toc-text">調整 keybinding</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A9%E5%80%8B%E7%B3%BB%E7%B5%B1%E7%9A%84-keybinding-%E6%9C%89%E5%BE%AE%E5%A6%99%E7%9A%84%E5%B7%AE%E7%95%B0"><span class="toc-number">2.1.1.</span> <span class="toc-text">兩個系統的 keybinding 有微妙的差異</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%87%E5%90%8C%E9%A1%9E%E5%9E%8B%E7%9A%84%E6%8C%89%E9%8D%B5%E7%B5%B1%E4%B8%80"><span class="toc-number">2.1.2.</span> <span class="toc-text">將同類型的按鍵統一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reference"><span class="toc-number">2.1.3.</span> <span class="toc-text">Reference</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">輸入法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%BC%E9%9F%B3%E3%80%81%E6%B3%A8%E9%9F%B3%EF%BC%9F"><span class="toc-number">2.2.1.</span> <span class="toc-text">拼音、注音？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Rime-%E5%AE%89%E8%A3%9D%E5%8F%8A-config-%E8%A8%AD%E5%AE%9A"><span class="toc-number">2.2.2.</span> <span class="toc-text">Rime 安裝及 config 設定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E5%B0%8F%E7%9F%A5%E8%AD%98"><span class="toc-number">2.2.3.</span> <span class="toc-text">其它小知識</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reference-1"><span class="toc-number">2.2.4.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%84%AA%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%8F%8A%E6%8E%A8%E8%96%A6%E8%BB%9F%E9%AB%94"><span class="toc-number">3.</span> <span class="toc-text">優化工作流及推薦軟體</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Window-Management%EF%BC%9A-yabai-skhd"><span class="toc-number">3.1.</span> <span class="toc-text">Window Management： yabai+skhd</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D"><span class="toc-number">3.1.1.</span> <span class="toc-text">安裝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A8%AD%E5%AE%9A"><span class="toc-number">3.1.2.</span> <span class="toc-text">如何設定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3"><span class="toc-number">3.1.3.</span> <span class="toc-text">我的操作習慣</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%99%A4%E9%8C%AF"><span class="toc-number">3.1.4.</span> <span class="toc-text">除錯</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%BB%9E"><span class="toc-number">3.1.5.</span> <span class="toc-text">需要注意的點</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#References"><span class="toc-number">3.1.6.</span> <span class="toc-text">References</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#App-Launcher-switcher%EF%BC%9ARaycast"><span class="toc-number">3.2.</span> <span class="toc-text">App Launcher, switcher：Raycast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Terminal"><span class="toc-number">3.3.</span> <span class="toc-text">Terminal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E6%B5%81%E8%A1%8C-terminal-%E7%9A%84%E9%81%B8%E6%93%87"><span class="toc-number">3.3.1.</span> <span class="toc-text">近期流行 terminal 的選擇</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Wezterm-%E5%8F%8A-keybinding-%E8%A8%AD%E5%AE%9A%E5%8F%83%E8%80%83"><span class="toc-number">3.3.2.</span> <span class="toc-text">Wezterm 及 keybinding 設定參考</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reference-2"><span class="toc-number">3.4.</span> <span class="toc-text">Reference</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%BE%8C%E7%9A%84-key-mapping"><span class="toc-number">4.</span> <span class="toc-text">最後的 key mapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">5.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%9E%A2%E5%B9%95%E8%AA%BF%E6%95%88"><span class="toc-number">5.1.</span> <span class="toc-text">螢幕調效</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Reference-3"><span class="toc-number">5.1.1.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97%E5%88%86%E4%BA%AB"><span class="toc-number">6.</span> <span class="toc-text">心得分享</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%B2%E5%85%A5-macOS-%E7%9A%84%E5%A5%91%E6%A9%9F"><span class="toc-number">6.1.</span> <span class="toc-text">進入 macOS 的契機</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%B9%B4%E4%B8%8B%E4%BE%86%E7%B0%A1%E5%96%AE%E7%9A%84%E5%BF%83%E5%BE%97%E4%BB%A5%E5%8F%8A%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91"><span class="toc-number">6.2.</span> <span class="toc-text">一年下來簡單的心得以及遇到的坑</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Fish Yu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-loading":"lazy"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'a45s67/a45s67.github.io',
+      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkyMjczMzA1OTY=',
+      'data-category-id': 'DIC_kwDODYzKJM4CR_uz',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const disqusReset = conf => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: conf
+    })
+  }
+
+  const loadDisqus = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyDisqus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    window.disqus_identifier = isShuoshuo ? path : '/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/'
+    window.disqus_url = isShuoshuo ? location.origin + path : 'https://sakana.tw/2025/01/30/%E5%88%86%E4%BA%AB%E6%88%91%E5%BE%9E-windows-%E8%BD%89%E6%8F%9B%E8%87%B3-mac-OS-%E5%BE%8C%EF%BC%8C%E7%B6%AD%E6%8C%81%E7%9B%B8%E8%BF%91%E7%9A%84%E6%93%8D%E4%BD%9C%E7%BF%92%E6%85%A3%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/'
+
+    const disqus_config = function () {
+      this.page.url = disqus_url
+      this.page.identifier = disqus_identifier
+      this.page.title = '分享我從 windows 轉換至 mac OS 後，維持相近的操作習慣、工作流程的方法'
+    }
+
+    if (window.DISQUS) disqusReset(disqus_config)
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://a45s67-blog.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+
+    btf.addGlobalFn('themeChange', () => disqusReset(disqus_config), 'disqus')
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=a45s67-blog&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Giscus' === 'Disqus'
+      ? window.shuoshuoComment = { loadComment: loadDisqus }
+      : window.loadOtherComment = loadDisqus
+    return
+  }
+
+  if ('Giscus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
